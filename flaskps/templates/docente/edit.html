@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}
+        <title>Editar un docente</title>
+    {% endblock %}
+    {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="../static/css/mediaQ.css" rel="stylesheet">
+        <link href="../static/css/cover.css" rel="stylesheet">
+        <script src="../static/js/__code.jquery.com_jquery-1.11.1.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+    {% endblock %}
+</head>
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    {% block navbar %}
+        <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="/usuarios">Usuarios</a>
+                <a class="nav-link active" href="/docentes">Docentes</a>
+                <a class="nav-link" href="/estudiantes">Estudiantes</a>
+                {% if adm %}
+                    <a class="nav-link" href="/configuracion">Configuracion</a>
+                {% endif %}
+                <a class="nav-link" href="/cerrar_sesion">Cerrar Sesion</a>
+            </nav>
+        </div>
+    </header>
+    {% endblock %}
+    {% block alert %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <br>
+                <ul class=flashes>
+                    <div class="alert alert-primary" role="alert">{{ messages[-1] }}</div>
+                </ul>
+            {% endif %}
+        {% endwith %}
+    {% endblock %}
+    <main class="inner cover">
+        {% block main %}
+
+         <div class="row">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Docente: {{ docente.nombre }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-20 col-lg-20 ">
+                        <form action="{{ url_for('docente_edit', id = docente.id) }}" method="POST" >
+                        <table class="table table-user-information">
+                                    <tr>
+                                        <td>Apellido:</td>
+                                        <td><input type="text" required name="apellido" value="{{docente.apellido}}" placeholder="{{docente.apellido}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre:</td>
+                                        <td><input type="text" required name="nombre" value="{{docente.nombre}}" placeholder="{{docente.nombre}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha de Nacimiento:</td>
+                                        <td><input required name="fecha_nac" type="date" value="{{docente.fecha_nac}}" placeholder="{{docente.fecha_nac}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Id de Localidad:</td>
+                                        <td><select required name="localidad_id" class="form-control" >
+                                            {% for localidad in localidades -%}
+                                            <option value="{{localidad.id}}">{{localidad.nombre}}</option>
+                                            {%- endfor %}</select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Domicilio</td>
+                                        <td><input type="text" required name="domicilio" value="{{docente.domicilio}}" placeholder="{{docente.domicilio}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Id de genero:</td>
+
+                                        <td><select name="genero_id" class="form-control" >
+                                                {% for genero in generos -%}
+                                                <option value="{{genero.id}}">{{genero.nombre}}</option>
+                                                {%- endfor %}</select></td>
+                                            
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo de Documento:</td>
+                                        <td><select name="tipo_doc_id" class="form-control" >
+                                            {% for identificacion in tipos_de_documentos -%}
+                                            <option value="{{identificacion.id}}">{{identificacion.nombre}}</option>
+                                            {%- endfor %}</select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Numero:</td>
+                                        <td><input type="number" required name="numero" value="{{docente.numero}}" placeholder="{{docente.numero}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telefono:</td>
+                                        <td><input required type="number" name="tel" value="{{docente.tel}}" placeholder="{{docente.tel}}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> </td>
+                                        <td><input type="submit" value="Editar"></td>
+                                    </tr>
+                        </table>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+        {% endblock %}
+    </main>
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            {% block footer %}
+                <p>Proyecto de Software 2019 - Grupo 34</p>
+                <p>{{mail}}</p>
+            {% endblock %}
+        </div>
+    </footer>
+</div>
+</body>
+</html>
+
+

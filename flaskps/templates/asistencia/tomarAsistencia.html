@@ -1,0 +1,94 @@
+{% extends "asistencia/homeAsistencia.html" %}
+{% block title %}
+    <title>Asistencia</title>
+{% endblock %}
+{% block navbar %}
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="/usuarios">Usuarios</a>
+                <a class="nav-link " href="/docentes">Docentes</a>
+                <a class="nav-link" href="/estudiantes">Estudiantes</a>
+                <a class="nav-link active" href="/asistencia">Asistencia</a>
+                <a class="nav-link" href="/instrumentos">Instrumentos</a>
+                <a class="nav-link" href="/administracion">Talleres</a>
+                <a class="nav-link" href="/administracionCiclos">Ciclos</a>
+                {% if adm %}
+                    <a class="nav-link" href="/configuracion">Configuracion</a>
+                {% endif %}
+                <a class="nav-link" href="/cerrar_sesion">Cerrar Sesion</a>
+            </nav>
+        </div>
+    </header>
+{% endblock %}
+{% block alert %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <br>
+            <ul class=flashes>
+                <div class="alert alert-primary" role="alert">{{ messages[-1] }}</div>
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+<main class="inner cover">
+
+    {% block main %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-20">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <br>
+                            <h2 class="panel-title">Tomar asistencia</h2>
+                            <br>
+                        </div>
+                        <form action="{{url_for('asistencia_presente', idLista = idLista)}}" method="POST">
+                        <div class="form-group">
+                                <span>Ingrese fecha para tomar asistencia</span>
+                                <input required id="fecha" type="date" class="form-control" name="fecha" placeholder="Fecha de Inicio">
+                        </div>    
+                        <table class="table table-hover" id="dev-table">
+                            <thead>
+                            <tr>
+                                <th>Apellido</th>
+                                <th>Nombre</th>
+                                <th>Presente</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for alumno in alumnos[i*pag:(i+1)*pag] %}
+                                <tr>
+                                    <td>{{ alumno.apellido }}</td>
+                                    <td>{{ alumno.nombre }}</td>
+                                    <td>
+                                        <input type="checkbox" name="alumnosElegidos" value="{{ alumno.id }}"><br>
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+                        <input type="submit" value="Submit">
+                    </form> 
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</main>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        {% block footer %}
+            <p>Proyecto de Software 2019 - Grupo 34</p>
+            <p>{{ mail }}</p>
+        {% endblock %}
+    </div>
+</footer>
+</div>
+</body>
+</html>

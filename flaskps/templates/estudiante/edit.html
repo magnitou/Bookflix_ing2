@@ -1,0 +1,127 @@
+{% extends "/estudiante/index.html" %}
+
+{% block title %}
+
+    <title>Editar usuario</title>
+
+{% endblock %}
+
+
+
+{% block main %}
+
+    <div class="container">
+        <div class="row">
+             <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Editar usuario</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class=" col-md-20 col-lg-20 ">
+                                <div style="overflow-x:auto;">
+                                    <form action="{{ url_for('estudiante_submitEdit', id = estudiante.id) }}" method="POST">
+                                    <table class="table table-user-information">
+                                            <tbody>
+                                                        <tr>
+                                                            <td>Apellido:</td>
+                                                            <td><input required name="apellido" value="{{estudiante.apellido}}" placeholder="{{estudiante.apellido}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nombre:</td>
+                                                            <td><input required name="nombre" value="{{estudiante.nombre}}" placeholder="{{estudiante.nombre}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fecha de Nacimiento:</td>
+                                                            <td><input required name="fecha_nac" type="date" value="{{estudiante.fecha_nac}}" placeholder="{{estudiante.fecha_nac}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Lugar De Nacimiento:</td>
+                                                            <td><input required name="lugar_nacimiento" value="{{estudiante.lugar_nacimiento}}" placeholder="{{estudiante.lugar_nacimiento}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Id de Localidad:</td>
+                                                            <td><select name="localidad_id" class="form-control">
+                                                                {% for localidad in localidades -%}
+                                                                <option class ="form-control" value="{{localidad.id}}">{{localidad.nombre}}</option>
+                                                                {%- endfor %}
+                                                            </select></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Id de Nivel:</td>
+                                                            <td><select name="nivel_id" class="form-control">
+                                                                {% for nivel in niveles -%}
+                                                                <option class ="form-control" value="{{nivel.id}}">{{nivel.nombre}}</option>
+                                                                {%- endfor %}
+                                                            </select></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Id de genero:</td>
+                                                            <td><select name="genero_id" class="form-control">
+                                                                {% for genero in generos -%}
+                                                                <option class ="form-control" value="{{genero.id}}">{{genero.nombre}}</option>
+                                                                {%- endfor %}
+                                                            </select></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Domicilio:</td>
+                                                            <td><input required name="domicilio" value="{{estudiante.domicilio}}" placeholder="{{estudiante.domicilio}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Id de escuela:</td>
+                                                            <td><select name="escuela_id" class="form-control">
+                                                                {% for escuela in escuelas -%}
+                                                                <option class ="form-control" value="{{escuela.id}}">{{escuela.nombre}}</option>
+                                                                {%- endfor %}
+                                                            </select></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tipo de Documento:</td>
+                                                            <td><select name="tipo_doc_id" class="form-control">
+                                                                {% for doc in tipos_de_documentos -%}
+                                                                <option class ="form-control" value="{{doc.id}}">{{doc.nombre}}</option>
+                                                                {%- endfor %}
+                                                            </select></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Numero:</td>
+                                                            <td><input required name="numero" value="{{estudiante.numero}}" placeholder="{{estudiante.numero}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Responsable:</td>
+                                                            <td>                           <select  name="responsable" class="form-control">
+                                                                    <option class ="form-control" value="Madre">Madre</option>
+                                                                    <option class ="form-control" value="Padre">Padre</option>
+                                                                    <option class ="form-control" value="Tutor">Tutor</option>
+                                                                </select></td>
+                                                        </tr>                    
+                                                        <tr>
+                                                            <td>Telefono:</td>
+                                                            <td><input required name="tel" value="{{estudiante.tel}}" placeholder="{{estudiante.tel}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Id de barrio:</td>
+                                                            <td><select name="barrio_id" class="form-control">
+                                                                {% for barrio in barrios -%}
+                                                                <option class ="form-control" value="{{barrio.id}}">{{barrio.nombre}}</option>
+                                                                {%- endfor %}
+                                                            </select></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td> </td>
+                                                            <td><input type="submit" value="Editar"></td>
+                                                        </tr>
+                                                </tbody>                           </table>
+                                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "/user/index.html" %}
+
+{% block title %}
+
+    <title>Editar usuario</title>
+
+{% endblock %}
+
+
+
+{% block main %}
+
+    <div class="container">
+        <div class="row">
+             <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Editar usuario</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class=" col-md-20 col-lg-20 ">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <form action="{{ url_for('user_resource_edit2', id = usuario.id) }}" method="POST">
+                                            <tr>
+                                                <td>Usuario:</td>
+                                                <td><input required type="text" name="username" value = {{usuario.username}} placeholder={{usuario.username}}></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Correo:</td>
+                                                <td><input required type="email" name="email" value = {{usuario.email}} placeholder={{usuario.email}}></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td><input required type="text" name="first_name" value = {{usuario.first_name}} placeholder={{usuario.first_name}}></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Apellido:</td>
+                                                <td><input required type="text" name="last_name" value = {{usuario.last_name}} placeholder={{usuario.last_name}}></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Clave:</td>
+                                                <td><input required type="text" name="password" value = {{usuario.password}} placeholder={{usuario.password}}></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><input required type="submit" value="Editar">
+                                                    <a href="/">Cancelar</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

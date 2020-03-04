@@ -1,0 +1,125 @@
+{% extends "administracion/homeAdministracion.html" %}
+
+
+{% block title %}
+
+    <title>Horarios</title>
+
+{% endblock %}
+
+{% block navbar %}
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="/administracion">Cancelar</a>
+            </nav>
+        </div>
+    </header>
+
+{% endblock %}
+
+{% block main %}
+    {% if adm %}
+    <div id="feriados">
+    
+    <h4 class="card-title mt-3 text-center">Asignar ciclo</h4> 
+                <p class="divider-text">
+                </p>
+                <form action="{{url_for('administracion_updateHorario', id = id)}}" method="POST">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <select required name="nucleo" class="form-control" >
+                            {% for nucleo in nucleos %}
+                                <option value="{{nucleo['id']}}" class="form-control" >{{nucleo['nombre']}}</option>
+                            {% endfor %}
+                        </select> 
+                        <br>   
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <select required name="dia" class="form-control" v-model="selected">
+                            <option class="form-control" disabled selected value="X">Elija un dia de semana</option>
+                            <option class="form-control" v-on:click="cambioDeDia" value="Lunes">Lunes</option>
+                            <option class="form-control" v-on:click="cambioDeDia" value="Martes">Martes</option>
+                            <option class="form-control" v-on:click="cambioDeDia" value="Miercoles">Miércoles</option>
+                            <option class="form-control" v-on:click="cambioDeDia" value="Jueves">Jueves</option>
+                            <option class="form-control" v-on:click="cambioDeDia" value="Viernes">Viernes</option>
+                            <option class="form-control" v-on:click="cambioDeDia" value="Sabado">Sábado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-20">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">Feriados para el ciclo lectivo</h3>
+                                    </div>
+                                    <div style="overflow-x:auto;">
+                                        <table class="table table-hover" id="dev-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Lunes</th>
+                                                    <th>Martes</th>
+                                                    <th>Miércoles</th>
+                                                    <th>Jueves</th>
+                                                    <th>Viernes</th>
+                                                    <th>Sábado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>                                                      
+                                                        <span>{{feriados[0]}}</span>
+                                                    </td>
+                                                
+                                                    <td>                                                      
+                                                        <span>{{feriados[1]}}</span>
+                                                    </td>
+                                                
+                                                    <td>                                                      
+                                                        <span>{{feriados[2]}}</span>
+                                                    </td>
+                                                
+                                                    <td>                                                      
+                                                        <span>{{feriados[3]}}</span>
+                                                    </td>
+                                                
+                                                    <td>                                                      
+                                                        <span>{{feriados[4]}}</span>
+                                                    </td>
+                                                
+                                                    <td>                                                      
+                                                        <span>{{feriados[5]}}</span>
+                                                    </td>
+                                                
+                                                    <td>                                                      
+                                                        <span>{{feriados[6]}}</span>
+                                                    </td>
+                                                </tr>                                                                                                                                                                                                                                                                       
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br>
+                    
+                    
+                                    
+                    
+                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+    </div>
+    
+    
+    {% endif %}
+{% endblock %}

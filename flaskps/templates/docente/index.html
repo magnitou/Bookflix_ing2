@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}
+        <title>Docentes</title>
+    {% endblock %}
+    {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="../static/css/mediaQ.css" rel="stylesheet">
+        <link href="../static/css/cover.css" rel="stylesheet">
+        <script src="../static/js/__code.jquery.com_jquery-1.11.1.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+    {% endblock %}
+</head>
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    {% block navbar %}
+        <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="/usuarios">Usuarios</a>
+                <a class="nav-link active" href="/docentes">Docentes</a>
+                <a class="nav-link" href="/estudiantes">Estudiantes</a>
+                <a class="nav-link" href="/asistencia">Asistencia</a>
+                <a class="nav-link" href="/instrumentos">Instrumentos</a>
+                <a class="nav-link" href="/administracion">Talleres</a>
+                <a class="nav-link" href="/administracionCiclos">Ciclos</a>
+                {% if adm %}
+                    <a class="nav-link" href="/configuracion">Configuracion</a>
+                {% endif %}
+                <a class="nav-link" href="/cerrar_sesion">Cerrar Sesion</a>
+            </nav>
+        </div>
+    </header>
+    {% endblock %}
+    {% block alert %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <br>
+                <ul class=flashes>
+                    <div class="alert alert-primary" role="alert">{{ messages[-1] }}</div>
+                </ul>
+            {% endif %}
+        {% endwith %}
+    {% endblock %}
+    <main class="inner cover">
+        {% block main %}
+        {% if permit %}
+
+        <div class="container">
+        <div class="row">
+            <div class="col-md-20">
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading">
+                        <br>
+                        <br>
+                        <a class="btn btn-link" href="{{ url_for('docente_create') }}">Nuevo Docente</a>
+                        <br>
+                        <br>
+                        <h3 class="panel-title">Docentes</h3>
+                        <br>
+                        <a class="btn btn-link" href="{{ url_for('docente_index') }}">Todos</a>
+                        <a class="btn btn-link" href="{{ url_for('docente_indexActive') }}">Activos</a>
+                        <a class="btn btn-link" href="{{ url_for('docente_indexInactive') }}">Inactivos</a>
+                        <br>
+                    </div>
+                    <table class="table table-hover" id="dev-table">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Fecha</th>
+                            <th>                     </th>
+                            <th>                    </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for docente in docentes[i*pag:(i+1)*pag] %}
+                        <tr>
+                            <td>{{ docente.nombre}}</td>
+                            <td>{{ docente.apellido}}</td>
+                            <td>{{ docente.fecha_nac}}</td>
+                            <td><a href ="{{ url_for('docente_update', id = docente.id)}}">Editar</a></td>
+                            {% if docente.activo %}
+                                <td><a href ="{{ url_for('docente_delete', id = docente.id)}}">Deshabilitar</a></td>
+                            {% else %}
+                                <td><a href ="{{ url_for('docente_active', id = docente.id)}}">Habilitar</a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                <br>
+                    <div class="wrapper">
+                            <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('docente_index', i=i-1 )}}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('docente_index', i=i+1 )}}">Next</a></li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        {% endif %}
+        {% endblock %}
+    </main>
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            {% block footer %}
+                <p>Proyecto de Software 2019 - Grupo 34</p>
+                <p>{{mail}}</p>
+            {% endblock %}
+        </div>
+    </footer>
+</div>
+</body>
+</html>

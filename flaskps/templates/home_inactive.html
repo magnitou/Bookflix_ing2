@@ -1,0 +1,27 @@
+{% extends "home.html" %}
+{% block title %}
+
+    <title>Sistema en mantenimiento</title>
+
+{% endblock %}
+
+{% block navbar %}
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="/iniciar_sesion">Iniciar Sesion</a>
+                {% if adm %}
+                    <a class="nav-link" href="#">Habilitar</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+{% endblock %}
+
+{% block main %}
+
+    <h2 class="panel-title">Sistema en mantenimiento</h2>
+    <h3 class="panel-title">Contactar a un administrador</h3>
+
+{% endblock %}

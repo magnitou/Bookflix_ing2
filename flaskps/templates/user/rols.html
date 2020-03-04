@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}
+
+        <title>Asignar Roles</title>
+
+    {% endblock %}
+
+
+    {% block head %}
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="../static/css/mediaQ.css" rel="stylesheet">
+        <link href="../static/css/cover.css" rel="stylesheet">
+        <script src="../static/js/tabla.js"></script>
+        <style href="../../static/css/text.css" rel="stylesheet"></style>
+        <script src="../static/js/__code.jquery.com_jquery-1.11.1.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+
+    {% endblock %}
+
+</head>
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+    {% block navbar %}
+
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link" href="/usuarios">Usuarios</a>
+                    <a class="nav-link" href="/docentes">Docentes</a>
+                    <a class="nav-link" href="/estudiantes">Estudiantes</a>
+                    <a class="nav-link" href="/administracion">Talleres</a>
+                    <a class="nav-link" href="/administracionCiclos">Ciclos</a>
+                    <a class="nav-link active" href="/configuracion">Configuracion</a>
+                    <a class="nav-link" href="/cerrar_sesion">Cerrar Sesion</a>
+
+                </nav>
+            </div>
+        </header>
+
+    {% endblock %}
+
+    {% block alert %}
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <br>
+                <ul class=flashes>
+                    <div class="alert alert-primary" role="alert">{{ messages[-1] }}</div>
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    {% endblock %}
+
+    <main role="main" class="inner cover">
+
+        {% block main %}
+
+
+ <div class="row">
+            <div class="col-md-20">
+                <div class="panel panel-primary">
+                    <a href="/configuracion">Cancelar</a>
+                    <br>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Usuarios Registrados</h3>
+                    </div>
+                    <table class="table table-hover" id="dev-table">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Fecha</th>
+                            <th>Docente                  </th>
+                            <th>Preceptor                </th>
+                            <th>Admin                    </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for usuario in usuarios[i*pag:(i+1)*pag] %}
+                        <tr>
+                            <td>{{ usuario.first_name }}</td>
+                            <td>{{ usuario.last_name }}</td>
+                            <td>{{ usuario.updated_at}}</td>
+                            <td>
+                                {% if 3 not in mapIdRol[usuario.id]%}
+                                    <a href="{{ url_for('user_resource_asignarRol', user = usuario.username, rol = 'docente')}}">Asginar Rol</a>
+                                {% else %}
+                                    <a href="{{ url_for('user_resource_deleteRol', user = usuario.username, rol = 'docente')}}">Borrar Rol</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if 2 not in mapIdRol[usuario.id]%}
+                                    <a href="{{ url_for('user_resource_asignarRol', user = usuario.username, rol = 'preceptor')}}">Asginar Rol</a>
+                                {% else %}
+                                    <a href="{{ url_for('user_resource_deleteRol', user = usuario.username, rol = 'preceptor')}}">Borrar Rol</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if 1 not in mapIdRol[usuario.id]%}
+                                    <a href="{{ url_for('user_resource_asignarRol', user = usuario.username, rol = 'admin')}}">Asginar Rol</a>
+                                {% else %}
+                                    <a href="{{ url_for('user_resource_deleteRol', user = usuario.username, rol = 'admin')}}">Borrar Rol</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                <br>
+                    <div class="wrapper">
+                            <ul class="pagination">
+                              <li class="page-item"><a class="page-link" href="{{ url_for('user_resource_indexAssign', i=i-1 )}}">Previous</a></li>
+                              <li class="page-item"><a class="page-link" href="{{ url_for('user_resource_indexAssign', i=i+1 )}}">Next</a></li>
+                            </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        {% endblock %}
+
+    </main>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+
+            {% block footer %}
+
+                <p>Proyecto de Software 2019 - Grupo 34</p>
+
+            {% endblock %}
+
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,92 @@
+{% extends "asistencia/homeAsistencia.html" %}
+{% block title %}
+    <title>Ver Asistencia</title>
+{% endblock %}
+{% block navbar %}
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="/usuarios">Usuarios</a>
+                <a class="nav-link " href="/docentes">Docentes</a>
+                <a class="nav-link" href="/estudiantes">Estudiantes</a>
+                <a class="nav-link active" href="/asistencia">Asistencia</a>
+                <a class="nav-link" href="/instrumentos">Instrumentos</a>
+                <a class="nav-link" href="/administracion">Talleres</a>
+                <a class="nav-link" href="/administracionCiclos">Ciclos</a>
+                {% if adm %}
+                    <a class="nav-link" href="/configuracion">Configuracion</a>
+                {% endif %}
+                <a class="nav-link" href="/cerrar_sesion">Cerrar Sesion</a>
+            </nav>
+        </div>
+    </header>
+{% endblock %}
+{% block alert %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <br>
+            <ul class=flashes>
+                <div class="alert alert-primary" role="alert">{{ messages[-1] }}</div>
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+<main class="inner cover">
+
+    {% block main %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-20">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <br>
+                            <h2 class="panel-title">Ver asistencia</h2>
+                            <br>
+                            
+                            <br><br>
+                        </div>
+                        
+                        <table class="table table-hover" id="dev-table">
+                            <thead>
+                            <tr>
+                                <th>Apellido, Nombre</th>
+                                {% for fecha in fechas %}
+                                    <th>{{fecha}}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            {% for i in range(estudiantes | length) %}
+                                <tr>
+                                    <td>{{nombres_estudiantes[i]}}</td>
+                                    {% for j in range(fechas | length)%}
+                                        {% if allChecked[j][i] %}
+                                            <td>P</td>
+                                        {% else %}
+                                            <td>A</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+</main>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        {% block footer %}
+            <p>Proyecto de Software 2019 - Grupo 34</p>
+            <p>{{ mail }}</p>
+        {% endblock %}
+    </div>
+</footer>
+</div>
