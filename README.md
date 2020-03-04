@@ -1,6 +1,6 @@
-# Proyecto 2019 aplicación de ejemplo
+# Bookflix
 
-Aplicación de ejemplo para la cátedra de Proyecto de Software de la UNLP.
+Aplicación de ejemplo para bookflix.
 
 ## Iniciar ambiente
 
