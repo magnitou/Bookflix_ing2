@@ -39,6 +39,16 @@ db.py             # Instancia de base de datos
 __init__.py       # Instancia de la aplicación y ruteo
 ```
 
-## TODO
+## Base De Datos
 
-- [ ] Usar una hoja de estilos simple para que quede de ejemplo.
+### Pasos Previos
+-instalar mysql
+-iniciar el daemon de mariadb.service
+### Crear la base
+```bash
+sudo mysql -p
+```
+Les va a pedir una contraseña, que es password1
+```mysql
+source /pathACarpetaDePagina/db/trabajo-proyecto-2019.sql
+```
