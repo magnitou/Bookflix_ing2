@@ -45,10 +45,11 @@ __init__.py       # Instancia de la aplicación y ruteo
 -instalar mysql
 -iniciar el daemon de mariadb.service
 ### Crear la base
+Corren mysql con sudo, después de ingresar la contraseña de root les va a pedir otra contraseña, que es password1
 ```bash
 sudo mysql -p
 ```
-Les va a pedir una contraseña, que es password1
+Para crear la base de datos:
 ```mysql
 source /pathACarpetaDePagina/db/trabajo-proyecto-2019.sql
 ```
