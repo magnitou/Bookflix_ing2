@@ -75,7 +75,7 @@
         {% if permiso_info: %}
             <h2>Cambiar Informacion de la pagina</h2>
             <form action="{{ url_for('configuracion_edit') }}" method="POST" class="navbar-form navbar-left">
-                <div class="form-group"
+            <div class="form-group">
                 <a>Titulo</a>
                 <input type="text" required class="form-control" name="title" value="{{ title }}" placeholder="{{ title }}">
                 <br>

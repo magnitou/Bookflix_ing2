@@ -62,13 +62,14 @@
                         </tr>
                         </thead>
                         {% if permit %}
-                        <tbody>
+                        <tbody> 
                         {% for usuario in usuarios[i*pag:(i+1)*pag] %}
                             <tr>
                             <td>{{ usuario.first_name }}</td>
                             <td>{{ usuario.last_name }}</td>
                             <td>{{ usuario.updated_at}}</td>
                             <td><a href ="{{ url_for('user_resource_edit', id = usuario.id)}}">Editar</a></td>
+                            <td><a href ="{{ url_for('user_resource_show', id = usuario.id)}}">Mostrar</a></td>
                             {% if usuario.activo %}
                                 <td><a href ="{{ url_for('user_resource_delete', id = usuario.id)}}">Deshabilitar</a></td>
                             {% else %}

@@ -28,32 +28,33 @@ app.add_url_rule(
 
 
 #Configuracion
-
 app.add_url_rule("/configuracion", 'configuracion_config', configuracion.config)
-app.add_url_rule("/configuration/deactive", 'configuracion_deactive', configuracion.deactive)
-app.add_url_rule("/configuration/active", 'configuracion_active', configuracion.active)
 app.add_url_rule("/configuration/toggle", 'configuracion_toggleActive', configuracion.toggleActive)
 app.add_url_rule("/configuration/edit", 'configuracion_edit', configuracion.editarInformacion, methods=['POST'])
 app.add_url_rule("/configuration/edit", 'configuracion_render_edit', configuracion.renderEditarInformacion)
-
-# Usuarios
-app.add_url_rule("/usuarios", 'user_resource_index', user_resource.index)
-app.add_url_rule("/usuarios", 'user_resource_create', user_resource.create, methods=['POST'])
 app.add_url_rule("/config", 'configuracion_changePage', configuracion.changePage, methods=['POST'])
+# Usuarios
+
+#Metodos para mostrar tablas de usuarios
+app.add_url_rule("/usuarios", 'user_resource_index', user_resource.index)
 app.add_url_rule("/usuarios/search_by_username", 'user_resource_indexUser', user_resource.indexUser, methods=['POST'])
 app.add_url_rule("/usuarios/index_by_active", 'user_resource_indexActive', user_resource.indexActive)
 app.add_url_rule("/usuarios/index_by_inactive", 'user_resource_indexInactive', user_resource.indexInactive)
-app.add_url_rule("/usuarios/create", 'user_resource_adminCreate', user_resource.adminCreate)
-app.add_url_rule("/usuario/new", 'user_resource_new', user_resource.new)
-app.add_url_rule("/usuarios/editar/<int:id>", 'user_resource_edit', user_resource.edit)
-app.add_url_rule("/usuarios/asignar/<string:user>/<string:rol>", 'user_resource_asignarRol', user_resource.assign)
-app.add_url_rule("/usuarios/asignar", 'user_resource_indexAssign', user_resource.indexAssign)
-app.add_url_rule("/usuarios/eliminarRol", 'user_resource_indexDeleterol', user_resource.indexDeleteRol)
-app.add_url_rule("/usuarios/eliminarRol/<string:user>/<string:rol>", 'user_resource_deleteRol', user_resource.deleteRol)
+#CRUD de usuarios
+app.add_url_rule("/usuarios", 'user_resource_create', user_resource.create, methods=['POST']) #realiza creacion en el modelo
+app.add_url_rule("/usuario/new", 'user_resource_new', user_resource.new) #levanta vista de creacion
+app.add_url_rule("/usuarios/editar/<int:id>", 'user_resource_edit', user_resource.edit)#levanta vista de edicion
+app.add_url_rule("/editar/<int:id>", 'user_resource_execute_edit', user_resource.executeEdit, methods=['POST']) #crea edicion en el modelo
+app.add_url_rule("/usuarios/mostrar/<int:id>", 'user_resource_show', user_resource.show) #mostrar datos de usuario
+app.add_url_rule("/usuarios/delete/<int:id>", 'user_resource_delete', user_resource.delete)#Baja logica
+app.add_url_rule("/usuarios/active/<int:id>", 'user_resource_active', user_resource.active)#activacion de baja logica
 
-app.add_url_rule("/editar/<int:id>", 'user_resource_edit2', user_resource.edit2, methods=['POST'])
-app.add_url_rule("/usuarios/delete/<int:id>", 'user_resource_delete', user_resource.delete)
-app.add_url_rule("/usuarios/active/<int:id>", 'user_resource_active', user_resource.active)
+#Asignacion de roles
+app.add_url_rule("/usuarios/asignar", 'user_resource_indexAssign', user_resource.indexAssign) #listar usuarios y roles
+app.add_url_rule("/usuarios/asignar/<string:user>/<string:rol>", 'user_resource_asignarRol', user_resource.assign) #asignar un rol
+app.add_url_rule("/usuarios/eliminarRol/<string:user>/<string:rol>", 'user_resource_deleteRol', user_resource.deleteRol) #desasignar un rol
+
+
 
 
 

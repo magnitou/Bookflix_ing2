@@ -22,7 +22,7 @@
                                 <div style="overflow-x:auto;">
                                     <table class="table table-user-information">
                                         <tbody>
-                                        <form action="{{ url_for('user_resource_edit2', id = usuario.id) }}" method="POST">
+                                        <form action="{{ url_for('user_resource_execute_edit', id = usuario.id) }}" method="POST">
                                             <tr>
                                                 <td>Usuario:</td>
                                                 <td><input required type="text" name="username" value = {{usuario.username}} placeholder={{usuario.username}}></td>
