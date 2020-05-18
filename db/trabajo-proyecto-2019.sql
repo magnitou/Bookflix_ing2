@@ -23,6 +23,7 @@
 -- Base de datos: `grupo21`
 --
 -- --------------------------------------------------------
+DROP DATABASE IF EXISTS `grupo21`;
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `grupo21` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
@@ -33,11 +34,38 @@ USE `grupo21`;
 --
 -- Estructura de tabla para la tabla `usuario`
 --
+
+DROP TABLE IF EXISTS `libro`;
+-- sin campo de archivo
+CREATE TABLE `libro`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `isbn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `available_from` datetime DEFAULT NULL,
+  `available_to` datetime DEFAULT NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `metadato`;
+
+CREATE TABLE `metadato`(
+  `isbn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `autor_id` int(11),
+  `sinopsis` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `editorial_id` int(11) NOT NULL,
+  `genero_id` int(11) NOT NULL,
+  PRIMARY KEY (isbn),
+  CONSTRAINT FK_metadato_autor_id FOREIGN KEY (autor_id) REFERENCES autor(id),
+  CONSTRAINT FK_metadato_editorial_id FOREIGN KEY (editorial_id) REFERENCES editorial(id),
+  CONSTRAINT FK_metadato_genero_id FOREIGN KEY (genero_id) REFERENCES genero(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dni` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '0',
@@ -45,17 +73,46 @@ CREATE TABLE `usuario` (
   `created_at` datetime DEFAULT NULL,
   `first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `subscription` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `codigo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `numero_tarjeta` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `autor`;
+
+CREATE TABLE `autor`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `editorial`;
+
+CREATE TABLE `editorial`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `genero`;
+
+CREATE TABLE `genero`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (2,'fede@gmail.com','fede','1234',1,19-11-20,19-11-20,'fede','Mozzon');
-INSERT INTO `usuario` VALUES (1,'ivan@gmail.com','ivan','1234',1,19-11-20,19-11-20,'ivan','Mindlin');
-INSERT INTO `usuario` VALUES (3,'lorenzo@gmail.com','lorenzo','1234',1,19-11-20,19-11-20,'lorenzo','Handula');
+INSERT INTO `usuario` VALUES (2,'sofia@gmail.com','21423123','fede','1234',1,19-11-20,19-11-20,'sofia','fernandez', 'basic', 19-11-20,'500','1234123412341234');
+INSERT INTO `usuario` VALUES (1,'ivan@gmail.com','11123123','ivan','1234',1,19-11-20,19-11-20,'ivan','Mindlin', 'premium', 19-11-20,'500','1234123412341234');
+INSERT INTO `usuario` VALUES (3,'martin@gmail.com','33123123','lorenzo','1234',1,19-11-20,19-11-20,'martin','delpino', 'premium', 19-11-20,'500','1234123412341234');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
--- --------------------------------------------------------
+
 
 --
 -- Estructura de tabla para la tabla `rol`
@@ -165,7 +222,7 @@ CREATE TABLE `configuracion` (
 
 LOCK TABLES `configuracion` WRITE;
 /*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
-INSERT INTO `configuracion` VALUES (1,10,1,'Orquesta Escuela','La orquesta escuela trata con muchos chicos','escuelaOrquesta@orquesta.com');
+INSERT INTO `configuracion` VALUES (1,10,1,'Bookflix','Bookflix, para leer y leerse','contact@bookflix.com');
 /*!40000 ALTER TABLE `configuracion` ENABLE KEYS */;
 UNLOCK TABLES;
 

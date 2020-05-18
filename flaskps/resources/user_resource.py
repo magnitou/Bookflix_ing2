@@ -6,6 +6,7 @@ from flaskps.helpers.auth import authenticated
 from flaskps.helpers.rols import mapRol
 from flaskps.resources.auth import hasPermit
 
+import datetime
 
 def show(id): #mostrar datos de un usuario
     if not authenticated(session):
@@ -15,7 +16,7 @@ def show(id): #mostrar datos de un usuario
     usuario = Usuario.find_by_id(id)
     return render_template('/user/show.html', usuario=usuario)
 
-def index():
+def index(): #home de usuarios
     if not authenticated(session):
         flash("Acceso inhabilitado")
         return redirect('/') 
@@ -29,7 +30,8 @@ def index():
     elif (i*pag >= len(usuarios)):
         i = i - 1
     admPermit = "configuracion_usarInhabilitado" in session['permisos']
-    return render_template('user/index.html', usuarios=usuarios, i=i, pag=pag, url=request.path, adm= admPermit, permit = admPermit) # Solo el admin puede usar Inhabilitade asi que usamos eso para saber si es admin
+    user_id = session['usuario_id']
+    return render_template('user/index.html', usuarios=usuarios, i=i, pag=pag, url=request.path, adm= admPermit, permit = admPermit, user_id=user_id) # Solo el admin puede usar Inhabilitade asi que usamos eso para saber si es admin
 
 def indexUser(): #mostrar usuario con cierto nombre
     if not authenticated(session):
@@ -53,52 +55,8 @@ def indexUser(): #mostrar usuario con cierto nombre
         flash("Busqueda realizada con exito")
         return render_template('user/index.html', usuarios=usuarios, i=i, pag=pag, adm=admPermit , permit = admPermit)
 
-def indexActive(): #mostrar todos los usuarios activos
-    url = request.path
-    if not authenticated(session):
-        flash("No puede ingresar sin iniciar sesion")
-        return redirect('/')
-    set_db()
-    usuarios = Usuario.find_by_active()
-    i = int(request.args.get('i',0))
-    Configuracion.db = get_db()
-    pag=Configuracion.get_page_size()
-    if (i == -1):
-        i=0
-    elif (i*pag > len(usuarios)):
-        i = i - 1
-    url = request.path
-    adm = False
-    if "usuario_index" in session['permisos']:
-        adm = True
-    return render_template('user/index.html', usuarios=usuarios, i=i, pag=pag, url=url, adm=adm, permit = "configuracion_usarInhabilitado" in session['permisos'])
-
-def indexInactive(): #mostrar usuarios inactivos
-    if not authenticated(session):
-        flash("No puede ingresar sin iniciar sesion")
-        return redirect('/')
-    set_db()
-    usuarios = Usuario.find_by_inactive()
-    i = int(request.args.get('i',0))
-    Configuracion.db = get_db()
-    pag=Configuracion.get_page_size()
-    if (i == -1):
-        i=0
-    elif (i*pag > len(usuarios)):
-        i = i - 1
-    url = request.path
-    adm = False
-    if "usuario_index" in session['permisos']:
-        adm = True
-    return render_template('user/index.html', usuarios=usuarios, i=i, pag=pag, url=url, adm=adm, permit = "configuracion_usarInhabilitado" in session['permisos'])
 
 def new(): #Levanta la vista de creacion de usuario
-    if not authenticated(session):
-        flash("No puede ingresar sin iniciar sesion")
-        return redirect('/')
-    if 'usuario_new' not in session['permisos']:
-        flash("No tiene permisos para crear un usuario")
-        return redirect(url_for('user_resource_index'))
     return render_template('user/new.html')
 
 
@@ -108,6 +66,9 @@ def edit(id): #levanta la vista de editar usuario
         return redirect('/')
     set_db()
     usuario = Usuario.find_by_id(id)
+    print(usuario)
+    usuario['fecha'] = usuario['fecha'].strftime("%Y-%m")
+    print(usuario)
     adm = False
     if "usuario_edit" in session['permisos']:
         adm = True
@@ -136,6 +97,47 @@ def deleteRol(user, rol): #sacar rol
     #usuario_destroy
     return redirect(url_for('user_resource_indexAssign'))
 
+
+def indexActive():
+    url = request.path
+    if not authenticated(session):
+        flash("No puede ingresar sin iniciar sesion")
+        return redirect('/')
+    set_db()
+    usuarios = Usuario.find_by_active()
+    i = int(request.args.get('i',0))
+    Configuracion.db = get_db()
+    pag=Configuracion.get_page_size()
+    if (i == -1):
+        i=0
+    elif (i*pag > len(usuarios)):
+        i = i - 1
+    url = request.path
+    adm = False
+    if "usuario_index" in session['permisos']:
+        adm = True
+    return render_template('user/index.html', usuarios=usuarios, i=i, pag=pag, url=url, adm=adm, permit = "configuracion_usarInhabilitado" in session['permisos'])
+
+def indexInactive():
+    if not authenticated(session):
+        flash("No puede ingresar sin iniciar sesion")
+        return redirect('/')
+    set_db()
+    usuarios = Usuario.find_by_inactive()
+    i = int(request.args.get('i',0))
+    Configuracion.db = get_db()
+    pag=Configuracion.get_page_size()
+    if (i == -1):
+        i=0
+    elif (i*pag > len(usuarios)):
+        i = i - 1
+    url = request.path
+    adm = False
+    if "usuario_index" in session['permisos']:
+        adm = True
+    return render_template('user/index.html', usuarios=usuarios, i=i, pag=pag, url=url, adm=adm, permit = "configuracion_usarInhabilitado" in session['permisos'])
+
+
 def indexAssign():
     if not authenticated(session):
         flash("No puede ingresar sin iniciar sesion")
@@ -163,26 +165,29 @@ def indexAssign():
 def executeEdit(id): #baja la edición al modelo
     if not authenticated(session):
         flash("No puede ingresar sin iniciar sesion")
-        return redirect(url_for('user_resource_index'))
-    print(session['permisos'])
-    if 'usuario_update' not in session['permisos']:
-        flash("No tiene permisos para editar un usuario")
-        return redirect(url_for('user_resource_index'))
+        return redirect(url_for('user_resource_index'))    
     set_db()
-    Usuario.update(request.form, id)
-    flash("Se modifico al usuario "+ request.form.get('username') + " correctamente")
+    user = Usuario.find_by_id(id)
+    if user['numero_tarjeta'] != request.form.get('numero_tarjeta') and not validate_card(request.form.get('dni'), request.form.get('numero_tarjeta')):        
+        flash('La Tarjeta ya se encuentra registrada')    
+    else:
+        Usuario.update(request.form, id)
+        flash("Se modifico al usuario "+ request.form.get('username') + " correctamente")
     return redirect(url_for('user_resource_index'))
 
 
 def create(): #crea un usuario
-    set_db()
-    if "usuario_new" in session['permisos']: #Si está creando el administrador
-        if validate_user(request.form.get('username'), request.form.get('email')):
-            Usuario.create(request.form)
-            flash("Usuario creado con exito")
-        else:
-            flash("Usuario/Correo ya registrado")
-    return redirect(url_for('user_resource_index'))
+    set_db()    
+    if not validate_user(request.form.get('username'), request.form.get('email')): 
+        flash("Usuario/Correo ya registrado")
+    if not validate_card(request.form.get('dni'), request.form.get('numero_tarjeta')):
+        flash("Tarjeta ya cargada")
+    else:
+        
+        Usuario.create(request.form)
+        flash("Usuario creado con exito")
+        return redirect(url_for('auth_login'))
+    return redirect(url_for('user_resource_new'))
 
 def delete(id): #inhabilita un usuario a usar la pagina
     if not authenticated(session):
@@ -214,6 +219,18 @@ def validate_user(username, email): # valida que haya un usuario en el sistema c
             validate = False
             break
     return validate
+def validate_card(dni, numero_tarjeta): # valida que haya un usuario en el sistema con ese mail o nombre de usuario
+    validate = True
+    for user in get_all_users() :
+        if user.get('numero_tarjeta') == numero_tarjeta:
+            validate = False
+            break
+    return validate
+
+def validate_date(carddate):
+    print(carddate)
+    t = datetime.datetime.now()
+    return True
 
 def get_all_users():
     set_db()

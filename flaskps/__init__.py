@@ -5,6 +5,10 @@ from flaskps.helpers.auth import authenticated
 from flaskps.resources import user_resource
 from flaskps.resources import auth
 from flaskps.resources import configuracion
+from flaskps.resources import book
+from flaskps.resources import autor
+from flaskps.resources import editorial
+from flaskps.resources import genero
 
 from flaskps.models.configuracion import Configuracion
 from flaskps.config import Config
@@ -54,6 +58,26 @@ app.add_url_rule("/usuarios/asignar", 'user_resource_indexAssign', user_resource
 app.add_url_rule("/usuarios/asignar/<string:user>/<string:rol>", 'user_resource_asignarRol', user_resource.assign) #asignar un rol
 app.add_url_rule("/usuarios/eliminarRol/<string:user>/<string:rol>", 'user_resource_deleteRol', user_resource.deleteRol) #desasignar un rol
 
+#CRUD de libros
+app.add_url_rule("/libros/new", 'book_new', book.new)
+app.add_url_rule("/libros", 'book_create', book.create, methods=['POST'])
+app.add_url_rule("/libros/meta", 'book_meta', book.render_meta)
+app.add_url_rule("/libros/meta", 'book_load_meta', book.load_meta, methods=['POST'])
+app.add_url_rule("/libros/editar_meta/<string:isbn>", "book_meta_edit", book.edit_meta)
+app.add_url_rule("/libros/editar_meta/<string:isbn>", "book_load_meta_edit", book.load_edit_meta, methods=['POST'])
+app.add_url_rule("/libros/eliminar/<string:isbn>", "book_meta_remove", book.remove_meta)
+#Manejo de libros
+app.add_url_rule("/libros", 'book_menu', book.render_menu)
+
+#CRUD autor
+app.add_url_rule("/autor/new", 'author_new', autor.new)
+app.add_url_rule("/autor/create", "author_create", autor.create,methods=['POST'])
+#CRUD editorial
+app.add_url_rule("/editorial/new", 'editorial_new', editorial.new)
+app.add_url_rule("/editorial/create", "editorial_create", editorial.create,methods=['POST'])
+#CRUD genero
+app.add_url_rule("/genero/new", 'genero_new', genero.new)
+app.add_url_rule("/genero/create", "genero_create", genero.create,methods=['POST'])
 
 
 

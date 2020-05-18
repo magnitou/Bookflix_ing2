@@ -12,8 +12,8 @@ class Usuario(object):
 
     @classmethod
     def create(cls, data):
-        sql = ' INSERT INTO usuario (email,username, password, activo,updated_at, created_at,first_name, last_name) VALUES (%s, %s, %s,%s, %s, %s, %s,%s)'
-        data = (data.get('email'),data.get('username'),data.get('password'),1, datetime.datetime.now(),datetime.datetime.now(),data.get('first_name'),data.get('last_name'))
+        sql = ' INSERT INTO usuario (email,username, dni,password, activo,updated_at, created_at,first_name, last_name, subscription,numero_tarjeta,codigo,fecha) VALUES (%s, %s,%s, %s,%s, %s, %s, %s,%s, %s, %s,%s, %s)'
+        data = (data.get('email'),data.get('username'),data.get('dni'),data.get('password'),1, datetime.datetime.now(),datetime.datetime.now(),data.get('first_name'),data.get('last_name'), data.get('subscription'), data.get('numero_tarjeta'), data.get('codigo'), data.get('fecha')+"-01")
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
         cls.db.commit()
@@ -40,8 +40,8 @@ class Usuario(object):
 
         cursor = cls.db.cursor()
         cursor.execute(sql, (email))
-
         return cursor.fetchone()
+        
     @classmethod
     def find_by_username(cls, username):
         cursor = cls.db.cursor()
@@ -106,9 +106,9 @@ class Usuario(object):
 
     @classmethod
     def update(cls,data, id):
-        sql = 'UPDATE usuario SET email = %s, username = %s, updated_at = %s, first_name = %s, last_name = %s WHERE id = %s;'
+        sql = 'UPDATE usuario SET email = %s, username = %s, updated_at = %s, first_name = %s, last_name = %s, subscription = %s, numero_tarjeta = %s, codigo = %s, fecha = %s WHERE id = %s;'
         cursor = cls.db.cursor()
-        data = (data.get('email'),data.get('username'), datetime.datetime.now(),data.get('first_name'),data.get('last_name'), str(id))
+        data = (data.get('email'),data.get('username'), datetime.datetime.now(),data.get('first_name'),data.get('last_name'),data.get('subscription'), data.get('numero_tarjeta'),data.get('codigo'),data.get('fecha')+"-01", str(id))
         cursor.execute(sql, data)
         cls.db.commit()
         return True

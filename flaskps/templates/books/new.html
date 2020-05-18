@@ -1,0 +1,45 @@
+{% extends "books/bookBase.html"%}
+
+{% block title %}
+    <title>Nuevo Libro</title>
+{% endblock %}
+
+{% block navbar %}
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="/usuarios">Usuarios</a>
+                <a class="nav-link active" href="/usuarios/mostrar/{{user_id}}">Ver mi perfil</a>
+                {% if adm %}
+                <a class="nav-link" href="/configuracion">Configuracion</a>
+                {% endif %}
+                <a class="nav-link" href="/cerrar_sesion">Cerrar Sesion</a>
+            </nav>
+        </div>
+    </header>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <h3>Alta de autor</h3>
+    <h4 class="card-title mt-3 text-center">Ingrese sus datos</h4>
+                <p class="text-center">Bookflix</p>
+                <p class="divider-text">
+                </p>
+                <form action="{{ url_for('author_create') }}" method="POST" enctype="multipart/form-data">            
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input required name="autor" class="form-control" placeholder="autor" type="text">
+                        </div> <!-- form-group// -->
+                        
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-light btn-block"> Cargar Autor  </button>
+                        </div> <!-- form-group// -->
+                    </form>
+
+{% endblock %}
