@@ -9,9 +9,19 @@ def new():
 
 def create():
     set_db()
-    Autor.create(request.form)
-    flash("Autor cargado")
+    if validate(request.form.get('nombre')):
+        Autor.create(request.form)
+        flash("Autor cargado")
     return redirect(url_for("book_menu"))
 
 def set_db():
     Autor.db = get_db()
+
+def validate(name): 
+    validate = True
+    autores = Autor.all()
+    for user in autores:
+        if user.get('nombre').lower() == name.lower():                                           
+            validate = False
+            break
+    return validate

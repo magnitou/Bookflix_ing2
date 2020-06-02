@@ -24,22 +24,39 @@
 {% block main %}
 
     <h3>Alta de autor</h3>
-    <h4 class="card-title mt-3 text-center">Ingrese sus datos</h4>
+    <h4 class="card-title mt-3 text-center">Cargando libro para {{titulo}}</h4>
+    <br>
+    <h4 class="card-title mt-3 text-center">Con ISBN {{isbn}}</h4>
                 <p class="text-center">Bookflix</p>
                 <p class="divider-text">
                 </p>
-                <form action="{{ url_for('author_create') }}" method="POST" enctype="multipart/form-data">            
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                            </div>
-                            <input required name="autor" class="form-control" placeholder="autor" type="text">
-                        </div> <!-- form-group// -->
+                <form action="{{ url_for('book_create', isbn=isbn) }}" onsubmit="return validate();" method="POST" enctype="multipart/form-data">            
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input required name="archivo" class="form-control" type="file">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="available_from" class="form-control" placeholder="Fecha de Disponobilidad" type="date" value="{{today}}">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="available_to" class="form-control" placeholder="Vencimiento (optativo)" type="date">
+                    </div> <!-- form-group// -->
+
                         
-                        
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-light btn-block"> Cargar Autor  </button>
-                        </div> <!-- form-group// -->
-                    </form>
+                                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-light btn-block"> Cargar Libro  </button>
+                    </div> <!-- form-group// -->
+                </form>
 
 {% endblock %}

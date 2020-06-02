@@ -36,14 +36,28 @@ USE `grupo21`;
 --
 
 DROP TABLE IF EXISTS `libro`;
--- sin campo de archivo
+
 CREATE TABLE `libro`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `isbn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `archivo` varchar(255) COLLATE utf8_unicode_ci,
   `available_from` datetime DEFAULT NULL,
   `available_to` datetime DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT FK_libro_isbn FOREIGN KEY (isbn) REFERENCES metadato(isbn)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `capitulo`;
+
+CREATE TABLE `capitulo`(
+  `num` int(11) NOT NULL,
+  `isbn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `archivo` varchar(255) COLLATE utf8_unicode_ci,
+  `available_from` datetime DEFAULT NULL,
+  `available_to` datetime DEFAULT NULL,
+  CONSTRAINT PK_capitulo PRIMARY KEY (num, isbn)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 DROP TABLE IF EXISTS `metadato`;
 
@@ -51,7 +65,7 @@ CREATE TABLE `metadato`(
   `isbn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `autor_id` int(11),
-  `sinopsis` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sinopsis` varchar(8000) COLLATE utf8_unicode_ci NOT NULL,
   `editorial_id` int(11) NOT NULL,
   `genero_id` int(11) NOT NULL,
   PRIMARY KEY (isbn),

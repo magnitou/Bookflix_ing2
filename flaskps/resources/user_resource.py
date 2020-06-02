@@ -170,20 +170,25 @@ def executeEdit(id): #baja la edición al modelo
     user = Usuario.find_by_id(id)
     if user['numero_tarjeta'] != request.form.get('numero_tarjeta') and not validate_card(request.form.get('dni'), request.form.get('numero_tarjeta')):        
         flash('La Tarjeta ya se encuentra registrada')    
+        return redirect(url_for('user_resource_edit', id=id))
     else:
-        Usuario.update(request.form, id)
-        flash("Se modifico al usuario "+ request.form.get('username') + " correctamente")
+        if (user['username'] != request.form.get('username')) and not validate_user(request.form.get('username'),request.form.get('email')):
+            return redirect(url_for('user_resource_edit', id=id))
+        if (user['email'] != request.form.get('email')) and not validate_email(request.form.get('email')):
+            return redirect(url_for('user_resource_edit', id=id))
+        else:
+            Usuario.update(request.form, id)
+            flash("Se modifico al usuario "+ request.form.get('username') + " correctamente")
     return redirect(url_for('user_resource_index'))
 
 
 def create(): #crea un usuario
     set_db()    
-    if not validate_user(request.form.get('username'), request.form.get('email')): 
-        flash("Usuario/Correo ya registrado")
+    if not validate_user(request.form.get('username'), request.form.get('email')) or not validate_email(request.form.get('email')):         
+        return redirect(url_for('user_resource_new'))
     if not validate_card(request.form.get('dni'), request.form.get('numero_tarjeta')):
-        flash("Tarjeta ya cargada")
-    else:
-        
+        flash("Tarjeta Ya cargada")
+    else:        
         Usuario.create(request.form)
         flash("Usuario creado con exito")
         return redirect(url_for('auth_login'))
@@ -215,16 +220,29 @@ def active(id): #Habilita a un usuario inhabilitado para usar la pagina
 def validate_user(username, email): # valida que haya un usuario en el sistema con ese mail o nombre de usuario
     validate = True
     for user in get_all_users() :
-        if user.get('username') == username or user.get('email') == email:
+        if user.get('username') == username:                        
+            print("Se repite el usuario")    
+            flash("Nombre de usuario ya registrado")            
             validate = False
             break
     return validate
-def validate_card(dni, numero_tarjeta): # valida que haya un usuario en el sistema con ese mail o nombre de usuario
+def validate_email(email):
     validate = True
     for user in get_all_users() :
-        if user.get('numero_tarjeta') == numero_tarjeta:
+        if user.get('email') == email:        
+            print("Se repite el mail")    
+            flash("Email ya registrado")
             validate = False
             break
+    return validate
+
+def validate_card(dni, numero_tarjeta): # valida que haya un usuario en el sistema con ese mail o nombre de usuario
+    validate = True
+    for user in get_all_users():
+        if user.get('numero_tarjeta') == numero_tarjeta:
+            validate = False
+            
+            break        
     return validate
 
 def validate_date(carddate):

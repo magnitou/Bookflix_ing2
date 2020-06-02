@@ -59,8 +59,8 @@ app.add_url_rule("/usuarios/asignar/<string:user>/<string:rol>", 'user_resource_
 app.add_url_rule("/usuarios/eliminarRol/<string:user>/<string:rol>", 'user_resource_deleteRol', user_resource.deleteRol) #desasignar un rol
 
 #CRUD de libros
-app.add_url_rule("/libros/new", 'book_new', book.new)
-app.add_url_rule("/libros", 'book_create', book.create, methods=['POST'])
+app.add_url_rule("/libros/new/<string:isbn>", 'book_new', book.new)
+app.add_url_rule("/libros/<string:isbn>", 'book_create', book.create, methods=['POST'])
 app.add_url_rule("/libros/meta", 'book_meta', book.render_meta)
 app.add_url_rule("/libros/meta", 'book_load_meta', book.load_meta, methods=['POST'])
 app.add_url_rule("/libros/editar_meta/<string:isbn>", "book_meta_edit", book.edit_meta)
@@ -68,6 +68,7 @@ app.add_url_rule("/libros/editar_meta/<string:isbn>", "book_load_meta_edit", boo
 app.add_url_rule("/libros/eliminar/<string:isbn>", "book_meta_remove", book.remove_meta)
 #Manejo de libros
 app.add_url_rule("/libros", 'book_menu', book.render_menu)
+app.add_url_rule("/libros/ver", 'book_open', book.open_book)
 
 #CRUD autor
 app.add_url_rule("/autor/new", 'author_new', autor.new)

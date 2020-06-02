@@ -26,7 +26,10 @@
         <div class="row">
              <div class="panel panel-info">
                     <div class="panel-heading">
+                        <br>
                         <h3 class="panel-title">Editar metadato</h3>
+                        <h6>Ingrese los datos que quiera modificar. El resto puede quedar en blanco</h6>
+                        <br>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -38,13 +41,13 @@
                                             <tr>
                                                 <td>Titulo:</td>
                                                 <td>{{book.titulo}}</td>
-                                                <td><input required type="text" name="titulo"></td>
+                                                <td><input  type="text" name="titulo"></td>
                                             </tr>
                                             <tr>
                                                 <td>Autor/es:</td>
                                                 <td>{{book.autor}}</td>
                                                 <td>
-                                                    <input required type="text" name="autor" list="autores">
+                                                    <input  type="text" name="autor" list="autores">
                                                     <datalist id="autores">
                                                         {% for autor in autores %}
                                                             <option value="{{autor['nombre']}}">{{autor['nombre']}}</option>
@@ -55,13 +58,13 @@
                                             <tr>
                                                 <td>Sinopsis:</td>
                                                 <td>{{book.sinopsis}}</td>
-                                                <td><textarea required type="text" name="sinopsis"></textarea></td>
+                                                <td><textarea  type="text" name="sinopsis"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Editorial:</td>
                                                 <td>{{book.editorial}}</td>
                                                 <td>
-                                                    <input required type="text" name="editorial" list="editoriales">
+                                                    <input  type="text" name="editorial" list="editoriales">
                                                     <datalist id="editoriales">
                                                         {% for editorial in editoriales %}
                                                             <option value="{{editorial['nombre']}}">{{editorial['nombre']}}</option>
@@ -73,7 +76,7 @@
                                                 <td>Genero:</td>
                                                 <td>{{book.genero}}</td>
                                                 <td>
-                                                    <input required type="text" name="genero" list="generos">
+                                                    <input  type="text" name="genero" list="generos">
                                                     <datalist id="generos">
                                                         {% for genero in generos %}
                                                             <option value="{{genero['nombre']}}">{{genero['nombre']}}</option>
@@ -83,7 +86,7 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td><input required type="submit" value="Editar">
+                                                <td><input  type="submit" value="Editar">
                                                     <a href="/libros">Cancelar</a>
                                                 </td>
                                             </tr>

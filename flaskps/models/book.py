@@ -5,9 +5,9 @@ from flaskps.models.genero import Genero
 class Book(object):
     db = None
     @classmethod
-    def create(cls, data):
-        sql = ' INSERT INTO libro (isbn, available_from, available_to) VALUES ( %s, %s,%s)'
-        data = (data.get('isbn'),data.get('available_from'),data.get('available_to'))
+    def create(cls, data, files,isbn):
+        sql = ' INSERT INTO libro (isbn, archivo, available_from, available_to) VALUES (%s, %s, %s,%s)'
+        data = (isbn,files['archivo'].filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
         cls.db.commit()

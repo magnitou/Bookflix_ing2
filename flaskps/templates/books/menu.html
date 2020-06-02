@@ -9,7 +9,7 @@
                 <div class="col-md-20">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                                <a class="btn btn-link" href="{{url_for('book_new')}}">Cargar Libro</a>
+                                
                                 <a class="btn btn-link" href="{{url_for('book_meta')}}">Cargar Metadatos</a>
                                 <br>
                                 <a class="btn btn-link" href="{{url_for('author_new')}}">Cargar Autor</a>
@@ -26,8 +26,17 @@
                                 <th>ISBN</th>
                                 <th>titulo</th>
                                 <th>Autor</th>
+                                {% if adm %}
+                                <th>                     </th>
+                                <th>                     </th>
                                 <th>                     </th>
                                 <th>                     </th>            
+                                <th>                     </th>                                
+                                {% else %}
+                                <th>                     </th>
+                                <th>                     </th>            
+                                {% endif %}
+                                
                             </tr>
                             </thead>
                             <tbody>
@@ -40,6 +49,7 @@
                                 <td>{{ book.autor_id}}</td>
                                 <td><a href ="{{ url_for('book_meta_edit', isbn = book.isbn)}}">Editar</a></td>
                                 <td><a href ="{{ url_for('book_meta_remove', isbn = book.isbn)}}">Eliminar Meta</a></td>
+                                <td><a class="btn btn-link" href="{{url_for('book_new', isbn = book.isbn)}}">Cargar Libro</a></td>
                                 
                             </tr>
                             {% endfor %}

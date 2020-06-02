@@ -9,9 +9,19 @@ def new():
 
 def create():
     set_db()
-    Genero.create(request.form)
-    flash("Genero cargado")
+    if validate(request.form.get('nombre')):
+        Genero.create(request.form) 
+        flash("Genero cargado")
     return redirect(url_for("book_menu"))
 
 def set_db():
     Genero.db = get_db()
+
+def validate(name): 
+    validate = True
+    autores = Genero.all()
+    for user in autores:
+        if user.get('nombre').lower() == name.lower():                                           
+            validate = False
+            break
+    return validate
