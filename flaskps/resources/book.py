@@ -35,13 +35,52 @@ def create(isbn):
     if validate_book_isbn(isbn):    
         if request.files: 
             archivo = request.files['archivo']
-            if archivo.filename not in os.listdir('flaskps/static/uploads'):
-                archivo.save(os.path.join('flaskps/static/uploads', archivo.filename))
-        Book.create(request.form, request.files,isbn)
+            book_name = Book.find_meta_by_isbn(isbn)['titulo']  
+            if not os.path.exists('flaskps/static/uploads/'+book_name):          
+                os.mkdir('flaskps/static/uploads/'+book_name)        
+            archivo.save(os.path.join('flaskps/static/uploads/'+book_name, book_name+"_Full"))
+        Book.create(request.form, book_name+"_Full",isbn)
+        Book.mark_complete(isbn)
+        print(Book.is_complete(isbn))
         flash("Libro cargado")
     else:
         flash("Ya existe un libro con el mismo ISBN")
     return redirect(url_for("book_menu"))
+
+#Creacion de capitulo
+def new_chapter(isbn):
+    set_db()
+    titulo = Book.find_meta_by_isbn(isbn)['titulo']
+    today = dt.datetime.now().strftime("%Y-%m-%d")
+    return render_template('books/new_chapter.html', isbn=isbn, titulo=titulo, today=today)
+
+def create_chapter(isbn):
+    set_db()
+    print("Crea cap")
+    if not Book.is_complete(isbn):    
+        if request.files: 
+            archivo = request.files['archivo']
+            book_name = Book.find_meta_by_isbn(isbn)['titulo']
+            chapter_name = book_name + "_cap_"+str(request.form['num'])
+            if not os.path.exists('flaskps/static/uploads/'+book_name):
+                os.mkdir('flaskps/static/uploads/'+book_name)            
+            if validate_chapter_isbn(isbn, request.form['num']):
+                archivo.save(os.path.join('flaskps/static/uploads/', chapter_name))
+                Book.create_chapter(request.form, chapter_name,isbn)
+            else:
+                flash("El capitulo  ya fue cargado")#+str(request.form['num']+
+                return redirect(url_for("book_menu"))
+        
+        if request.form['completo']=="True":            
+            Book.mark_complete(isbn)
+        
+        flash("Capitulo cargado")
+    else:
+        flash("Ya se cargo todo el libro")
+    print("Hizo todo")
+    return redirect(url_for("book_menu"))
+
+
 
 #crud de metadatos
 def render_meta():
@@ -177,6 +216,10 @@ def validate_meta_isbn(isbn):
 
 def validate_book_isbn(isbn):
     book = Book.find_by_isbn(isbn)
+    return book == None
+
+def validate_chapter_isbn(isbn, num):
+    book = Book.find_chapter_by_isbn(isbn, num)
     return book == None
 
 def set_db():

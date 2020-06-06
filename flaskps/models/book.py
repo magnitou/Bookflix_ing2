@@ -5,14 +5,23 @@ from flaskps.models.genero import Genero
 class Book(object):
     db = None
     @classmethod
-    def create(cls, data, files,isbn):
+    def create(cls, data, filename,isbn):
         sql = ' INSERT INTO libro (isbn, archivo, available_from, available_to) VALUES (%s, %s, %s,%s)'
-        data = (isbn,files['archivo'].filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
+        data = (isbn,filename['archivo'].filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
         cls.db.commit()
         return True
     
+    @classmethod
+    def create_chapter(cls, data, filename,isbn):
+        sql = ' INSERT INTO capitulo (num, isbn, archivo, available_from, available_to) VALUES (%s, %s, %s, %s,%s)'
+        data = (data.get('num'), isbn,filename['archivo'].filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
+        cursor = cls.db.cursor()
+        cursor.execute(sql, data)
+        cls.db.commit()
+        return True
+
     @classmethod
     def loadMeta(cls, data,id_autor, id_editorial, id_genero):
         sql = 'INSERT INTO metadato (isbn, titulo, autor_id, sinopsis, editorial_id, genero_id) VALUES (%s, %s, %s, %s,%s, %s)'
@@ -64,3 +73,27 @@ class Book(object):
         cursor = cls.db.cursor()
         cursor.execute(sql, (isbn))
         return cursor.fetchone()
+
+    @classmethod
+    def find_chapter_by_isbn(cls, isbn, num):
+        sql = 'SELECT * FROM capitulo WHERE isbn = %s and num = %s'
+        cursor = cls.db.cursor()
+        cursor.execute(sql, (isbn, num))
+        return cursor.fetchone()
+
+    @classmethod
+    def mark_complete(cls, isbn):
+        sql = 'UPDATE metadato SET completo = %s WHERE isbn = %s'
+        cursor = cls.db.cursor()
+        cursor.execute(sql, ('1',isbn))
+        cls.db.commit()
+        return True
+
+    @classmethod
+    def is_complete(cls, isbn):
+        sql = 'SELECT completo FROM metadato WHERE isbn = %s'
+        cursor = cls.db.cursor()
+        cursor.execute(sql, (isbn))
+        status = cursor.fetchone()['completo']
+        print(status)
+        return status==1

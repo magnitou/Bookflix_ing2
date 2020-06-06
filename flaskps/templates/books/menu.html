@@ -31,6 +31,8 @@
                                 <th>                     </th>
                                 <th>                     </th>
                                 <th>                     </th>            
+                                <th>                     </th>
+                                <th>                     </th>  
                                 <th>                     </th>                                
                                 {% else %}
                                 <th>                     </th>
@@ -50,6 +52,7 @@
                                 <td><a href ="{{ url_for('book_meta_edit', isbn = book.isbn)}}">Editar</a></td>
                                 <td><a href ="{{ url_for('book_meta_remove', isbn = book.isbn)}}">Eliminar Meta</a></td>
                                 <td><a class="btn btn-link" href="{{url_for('book_new', isbn = book.isbn)}}">Cargar Libro</a></td>
+                                <td><a class="btn btn-link" href="{{url_for('book_new_chapter', isbn = book.isbn)}}">Cargar Capitulo</a></td>
                                 
                             </tr>
                             {% endfor %}

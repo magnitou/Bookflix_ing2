@@ -1,0 +1,76 @@
+{% extends "books/bookBase.html"%}
+
+{% block title %}
+    <title>Nuevo Capitulo</title>
+{% endblock %}
+
+{% block navbar %}
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="/usuarios">Usuarios</a>
+                <a class="nav-link active" href="/usuarios/mostrar/{{user_id}}">Ver mi perfil</a>
+                {% if adm %}
+                <a class="nav-link" href="/configuracion">Configuracion</a>
+                {% endif %}
+                <a class="nav-link" href="/cerrar_sesion">Cerrar Sesion</a>
+            </nav>
+        </div>
+    </header>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <h3>Alta de Capitulo</h3>
+    <h4 class="card-title mt-3 text-center">Cargando Capitulo para {{titulo}}</h4>
+    <br>
+    <h4 class="card-title mt-3 text-center">Con ISBN {{isbn}}</h4>
+                <p class="text-center">Bookflix</p>
+                <p class="divider-text">
+                </p>
+                <form action="{{ url_for('book_create_chapter', isbn=isbn) }}" onsubmit="return validate();" method="POST" enctype="multipart/form-data">            
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input required name="archivo" class="form-control" type="file">
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input required name="num" class="form-control" type="number" min="0" placeholder="Numero de capitulo">
+                    </div> <!-- form-group// -->
+                    
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="available_from" class="form-control" placeholder="Fecha de Disponobilidad" type="date" value="{{today}}">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="available_to" class="form-control" placeholder="Vencimiento (optativo)" type="date">
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input name="completo" class="form-control" type="checkbox" value={{True}}>
+                        <input name="completo" class="form-control" type="hidden" value={{False}}>
+                    </div> <!-- form-group// -->
+                    
+                        
+                                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-light btn-block"> Cargar Libro  </button>
+                    </div> <!-- form-group// -->
+                </form>
+
+{% endblock %}

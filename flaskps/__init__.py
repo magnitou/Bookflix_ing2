@@ -61,6 +61,9 @@ app.add_url_rule("/usuarios/eliminarRol/<string:user>/<string:rol>", 'user_resou
 #CRUD de libros
 app.add_url_rule("/libros/new/<string:isbn>", 'book_new', book.new)
 app.add_url_rule("/libros/<string:isbn>", 'book_create', book.create, methods=['POST'])
+app.add_url_rule("/libros/new_chapter/<string:isbn>", 'book_new_chapter', book.new_chapter)
+app.add_url_rule("/libroscap/<string:isbn>", 'book_create_chapter', book.create_chapter, methods=['POST'])
+
 app.add_url_rule("/libros/meta", 'book_meta', book.render_meta)
 app.add_url_rule("/libros/meta", 'book_load_meta', book.load_meta, methods=['POST'])
 app.add_url_rule("/libros/editar_meta/<string:isbn>", "book_meta_edit", book.edit_meta)

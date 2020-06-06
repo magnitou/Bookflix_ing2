@@ -68,6 +68,7 @@ CREATE TABLE `metadato`(
   `sinopsis` varchar(8000) COLLATE utf8_unicode_ci NOT NULL,
   `editorial_id` int(11) NOT NULL,
   `genero_id` int(11) NOT NULL,
+  `completo` tinyInt(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (isbn),
   CONSTRAINT FK_metadato_autor_id FOREIGN KEY (autor_id) REFERENCES autor(id),
   CONSTRAINT FK_metadato_editorial_id FOREIGN KEY (editorial_id) REFERENCES editorial(id),
