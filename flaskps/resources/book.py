@@ -32,7 +32,7 @@ def new(isbn):
 
 def create(isbn):
     set_db()
-    if validate_book_isbn(isbn):    
+    if validate_book_isbn(isbn) and not Book.is_complete(isbn):    
         if request.files: 
             archivo = request.files['archivo']
             book_name = Book.find_meta_by_isbn(isbn)['titulo']  

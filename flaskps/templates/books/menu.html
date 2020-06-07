@@ -7,7 +7,7 @@
     <div class="container">
             <div class="row">
                 <div class="col-md-20">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary" >
                         <div class="panel-heading">
                                 
                                 <a class="btn btn-link" href="{{url_for('book_meta')}}">Cargar Metadatos</a>
@@ -19,7 +19,7 @@
                             <br>
                                 <h3 class="panel-title">Libros</h3>
                         </div>
-                        <table class="table table-hover" id="dev-table">
+                        <table class="table table-hover" id="dev-table" >
                             <thead>
                             <tr>
                                 <th>       </th>
@@ -27,6 +27,7 @@
                                 <th>titulo</th>
                                 <th>Autor</th>
                                 {% if adm %}
+                                <th>                     </th>
                                 <th>                     </th>
                                 <th>                     </th>
                                 <th>                     </th>
@@ -52,6 +53,7 @@
                                 <td><a href ="{{ url_for('book_meta_edit', isbn = book.isbn)}}">Editar</a></td>
                                 <td><a href ="{{ url_for('book_meta_remove', isbn = book.isbn)}}">Eliminar Meta</a></td>
                                 <td><a class="btn btn-link" href="{{url_for('book_new', isbn = book.isbn)}}">Cargar Libro</a></td>
+                                <td><a class="btn btn-link" href="{{url_for('book_new_chapter', isbn = book.isbn)}}">Cargar Capitulo</a></td>
                                 <td><a class="btn btn-link" href="{{url_for('book_new_chapter', isbn = book.isbn)}}">Cargar Capitulo</a></td>
                                 
                             </tr>

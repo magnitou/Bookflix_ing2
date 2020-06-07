@@ -7,7 +7,7 @@ class Book(object):
     @classmethod
     def create(cls, data, filename,isbn):
         sql = ' INSERT INTO libro (isbn, archivo, available_from, available_to) VALUES (%s, %s, %s,%s)'
-        data = (isbn,filename['archivo'].filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
+        data = (isbn,filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
         cls.db.commit()
@@ -16,7 +16,7 @@ class Book(object):
     @classmethod
     def create_chapter(cls, data, filename,isbn):
         sql = ' INSERT INTO capitulo (num, isbn, archivo, available_from, available_to) VALUES (%s, %s, %s, %s,%s)'
-        data = (data.get('num'), isbn,filename['archivo'].filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
+        data = (data.get('num'), isbn,filename,data.get('available_from'),data.get('available_to') if data.get('available_to')!='' else None)
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
         cls.db.commit()
