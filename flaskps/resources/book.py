@@ -11,7 +11,7 @@ import datetime as dt
 import os
 
 def render_menu():
-    set_db()
+    set_db()    
     books = Book.allMeta()    
     i = int(request.args.get('i',0))
     Configuracion.db = get_db()

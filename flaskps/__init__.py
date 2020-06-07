@@ -9,6 +9,8 @@ from flaskps.resources import book
 from flaskps.resources import autor
 from flaskps.resources import editorial
 from flaskps.resources import genero
+from flaskps.resources import novedad
+
 
 from flaskps.models.configuracion import Configuracion
 from flaskps.config import Config
@@ -83,6 +85,11 @@ app.add_url_rule("/editorial/create", "editorial_create", editorial.create,metho
 app.add_url_rule("/genero/new", 'genero_new', genero.new)
 app.add_url_rule("/genero/create", "genero_create", genero.create,methods=['POST'])
 
+
+#CRUD novedades
+app.add_url_rule("/novedades/new", "novedad_new", novedad.new)
+app.add_url_rule("/novedades/create", "novedad_create", novedad.create,methods=['POST'])
+app.add_url_rule("/novedades", "novedad_index", novedad.index)
 
 
 
