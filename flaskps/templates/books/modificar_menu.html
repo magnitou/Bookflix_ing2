@@ -1,0 +1,31 @@
+{% extends "books/bookBase.html" %}
+
+{% block main %}
+    
+
+
+    <div class="container">
+            <div class="row">
+                <div class="col-md-20">
+                    <div class="panel panel-primary" >
+                        <div class="panel-heading">
+                            <br>                                
+                        </div>
+                        
+                        <br>
+                    </div>
+                    <h3 class="panel-title">Modificar fecha para todo el libro</h3>
+                    <br>
+                    <h3 class="">(Si se cargo por capitulos se cambiara la fecha para todos los capitulos)</h3>
+                    <a class="btn btn-link" href="{{url_for('book_date_book', isbn=isbn)}}">Todo el libro</a>
+                    <h3 class="panel-title">Modificar por capitulo</h3>
+                    {% for capitulo in capitulos%}
+                        <a class="btn btn-link" href="{{url_for('book_date_chap', isbn=isbn, num = capitulo.num)}}">Capitulo {{capitulo.num}}</a>
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+
+    
+{% endblock %}

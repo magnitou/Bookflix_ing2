@@ -46,6 +46,15 @@ CREATE TABLE `novedad`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+DROP TABLE IF EXISTS `trailer`;
+
+CREATE TABLE `trailer`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `archivo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 

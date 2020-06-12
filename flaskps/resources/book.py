@@ -7,12 +7,20 @@ from flaskps.models.autor import Autor
 from flaskps.models.editorial import Editorial
 from flaskps.models.genero import Genero
 
+from flaskps.helpers.mergepdf import merger
 import datetime as dt
 import os
+
+
 
 def render_menu():
     set_db()    
     books = Book.allMeta()    
+    venc = list(map(lambda meta: validate_date(meta['isbn']), books))
+    hasChapters = list(map(lambda meta: Book.allChapter(meta['isbn'])!=(), books))
+    print("Lista de tiene capitulos")
+    print(hasChapters)
+
     i = int(request.args.get('i',0))
     Configuracion.db = get_db()
     pag=Configuracion.get_page_size()
@@ -21,16 +29,25 @@ def render_menu():
     elif (i*pag >= len(books)):
         i = i - 1
     adm = "configuracion_usarInhabilitado" in session['permisos'] #Permiso que solo tiene un administrador
-    return render_template('books/menu.html', books=books, i=i, pag=pag, adm=adm)
+    return render_template('books/menu.html', books=books, i=i, pag=pag, adm=adm, canReadBook=venc, hasChapters=hasChapters)
 
 #creacion de libros
 def new(isbn):
     set_db()
-    titulo = Book.find_meta_by_isbn(isbn)['titulo']
-    today = dt.datetime.now().strftime("%Y-%m-%d")
-    return render_template('books/new.html', isbn=isbn, titulo=titulo, today=today)
+    if validate_book_isbn(isbn):
+        caps = Book.allChapter(isbn)
+        if(caps==()):
+            titulo = Book.find_meta_by_isbn(isbn)['titulo']
+            today = dt.datetime.now().strftime("%Y-%m-%d")
+            return render_template('books/new.html', isbn=isbn, titulo=titulo, today=today)
+        else:
+            flash("Ya se han cargado capitulos")
+    else:
+        flash("Ya hay un libro cargado")
+    return redirect(url_for("book_menu"))
+    
 
-def create(isbn):
+def create(isbn): #Crea / Guarda un archivo de libro
     set_db()
     if validate_book_isbn(isbn) and not Book.is_complete(isbn):    
         if request.files: 
@@ -38,8 +55,8 @@ def create(isbn):
             book_name = Book.find_meta_by_isbn(isbn)['titulo']  
             if not os.path.exists('flaskps/static/uploads/'+book_name):          
                 os.mkdir('flaskps/static/uploads/'+book_name)        
-            archivo.save(os.path.join('flaskps/static/uploads/'+book_name, book_name+"_Full"))
-        Book.create(request.form, book_name+"_Full",isbn)
+            archivo.save(os.path.join('flaskps/static/uploads/'+book_name, book_name+"_Full.pdf"))
+        Book.create(request.form, book_name+"_Full.pdf",isbn)
         Book.mark_complete(isbn)
         print(Book.is_complete(isbn))
         flash("Libro cargado")
@@ -50,9 +67,17 @@ def create(isbn):
 #Creacion de capitulo
 def new_chapter(isbn):
     set_db()
-    titulo = Book.find_meta_by_isbn(isbn)['titulo']
-    today = dt.datetime.now().strftime("%Y-%m-%d")
-    return render_template('books/new_chapter.html', isbn=isbn, titulo=titulo, today=today)
+    if not Book.is_complete(isbn):
+        titulo = Book.find_meta_by_isbn(isbn)['titulo']
+        today = dt.datetime.now().strftime("%Y-%m-%d")
+        return render_template('books/new_chapter.html', isbn=isbn, titulo=titulo, today=today)
+    else:
+        if validate_book_isbn(isbn):
+            flash("Ya se cargaron todos los capitulos")
+        else:
+            flash("Ya se cargó el libro")
+    return redirect(url_for("book_menu"))
+    
 
 def create_chapter(isbn):
     set_db()
@@ -61,11 +86,11 @@ def create_chapter(isbn):
         if request.files: 
             archivo = request.files['archivo']
             book_name = Book.find_meta_by_isbn(isbn)['titulo']
-            chapter_name = book_name + "_cap_"+str(request.form['num'])
+            chapter_name = book_name + "_cap_"+str(request.form['num'])+".pdf"
             if not os.path.exists('flaskps/static/uploads/'+book_name):
                 os.mkdir('flaskps/static/uploads/'+book_name)            
             if validate_chapter_isbn(isbn, request.form['num']):
-                archivo.save(os.path.join('flaskps/static/uploads/', chapter_name))
+                archivo.save(os.path.join('flaskps/static/uploads/'+book_name, chapter_name))
                 Book.create_chapter(request.form, chapter_name,isbn)
             else:
                 flash("El capitulo  ya fue cargado")#+str(request.form['num']+
@@ -73,6 +98,7 @@ def create_chapter(isbn):
         
         if request.form['completo']=="True":            
             Book.mark_complete(isbn)
+            merger(book_name)
         
         flash("Capitulo cargado")
     else:
@@ -201,14 +227,80 @@ def load_edit_meta(isbn):
     return redirect(url_for("book_menu"))
     
 
+
 def remove_meta(isbn):
     set_db()
     Book.deleteMeta(isbn)
     return redirect(url_for("book_menu"))
+
+def date_menu(isbn):
+    set_db()
+    capitulos = Book.allChapter(isbn)
+    libro = Book.find_by_isbn(isbn)
+    print(capitulos)
+    print(libro)
+    return render_template('books/modificar_menu.html', isbn=isbn, capitulos=capitulos, libro=libro)
+
+def date_render_book(isbn):
+    print("cambiar fecha de todo")
+    Book.db = get_db()
+    book = Book.find_by_isbn(isbn)
+    if book is not None:
+        available_from = book['available_from']
+        available_to = book['available_to']
+    else:
+        available_from = ''
+        available_to = ''
+    adm = "configuracion_usarInhabilitado" in session['permisos'] #Permiso que solo tiene un administrador
+    return render_template('books/modificar_total.html',adm=adm, isbn=isbn, available_from=available_from, available_to=available_to)
+
+def date_render_chap(isbn, num):
+    print("cambiar fecha de capitulo")
+    Book.db = get_db()
+    book = Book.find_chapter_by_isbn(isbn, num)
+    available_from = book['available_from']
+    available_to = book['available_to']
+    adm = "configuracion_usarInhabilitado" in session['permisos'] #Permiso que solo tiene un administrador
+    return render_template('books/modificar_chap.html', adm=adm, isbn=isbn, num=num,available_from=available_from, available_to=available_to)
+
+def date_book(isbn):
+    set_db()
+    if (Book.find_by_isbn(isbn) is None):
+        Book.updateDate_allChap(isbn, request.form)
+    else: 
+        Book.updateDate_book(isbn, request.form)
+    return redirect(url_for("book_menu"))
+
+def date_chap(isbn, num):
+    set_db()
+    Book.updateDate_oneChap(isbn, num, request.form)
+    return redirect(url_for("book_menu"))
 #Muestra de libros
 
-def open_book():
-    return render_template('books/abrirlibro.html')
+
+
+def open_book(isbn): #aca abre el libro guardado
+    print("abro")
+    set_db()
+    titulo = Book.find_meta_by_isbn(isbn)['titulo']
+    nombre = titulo+"_Full"
+    return render_template('books/abrirlibro.html', titulo=titulo, nombre=nombre)
+
+def open_cap_menu(isbn):
+    set_db()
+    capitulos = Book.allChapter(isbn)
+    today = dt.datetime.now()
+    noDisponibles = list(map(lambda cap: cap['available_from'] > today, capitulos))
+    vencidos = list(map(lambda cap: ((cap['available_to'] is not None) and cap['available_to'] < today), capitulos))
+    titulo = Book.find_meta_by_isbn(isbn)['titulo']
+    return render_template('books/abrir_cap_menu.html',isbn=isbn, capitulos=capitulos, noDisponibles=noDisponibles, vencidos=vencidos, titulo=titulo)
+
+def open_cap(isbn, num):
+    print("abro capitulo")
+    set_db()
+    titulo = Book.find_meta_by_isbn(isbn)['titulo']
+    nombre = titulo+"_cap_"+str(num)
+    return render_template('books/abrirlibro.html', titulo=titulo, nombre=nombre)
 
 def validate_meta_isbn(isbn):
     book = Book.find_meta_by_isbn(isbn)
@@ -221,6 +313,32 @@ def validate_book_isbn(isbn):
 def validate_chapter_isbn(isbn, num):
     book = Book.find_chapter_by_isbn(isbn, num)
     return book == None
+
+def validate_date(isbn):
+    set_db()
+    complete = Book.is_complete(isbn)
+    if complete:
+        book = Book.find_by_isbn(isbn)
+        today = dt.datetime.now()#.strftime("%Y-%m-%d")
+        if book is None:
+            caps = Book.allChapter(isbn)            
+            for cap in caps:
+                if cap['available_to'] is not None and today > cap['available_to']:
+                    print("Se encontro un capitulo vencido")
+                    return False
+            print("Ningun Capitulo se vencio")
+            return True
+        else:
+            if book['available_to'] is not None and today > book['available_to']:
+                print("El libro esta vencido")
+                return False
+            else:
+                print("El libro no esta vencido")
+                return True                                
+    else:
+        print("Aun no se cargo el libro")
+        return False
+
 
 def set_db():
     Book.db = get_db()

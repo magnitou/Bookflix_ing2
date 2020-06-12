@@ -2,10 +2,12 @@
 import sys
 import os
 from PyPDF2 import PdfFileReader, PdfFileMerger
-def merger():
+def merger(book_name):
 	merger = PdfFileMerger()
-	files = os.listdir(sys.argv[1])
-	print(len(files))
-	for cap_num in range(1,len(files)+1):
-		merger.append(PdfFileReader(sys.argv[1]+'/'+str(cap_num)+".pdf", 'rb'))
-	merger.write("merged.pdf")
+	files = os.listdir('flaskps/static/uploads/'+book_name)
+	files.sort()
+	#files = os.listdir('flaskps/static/uploads/'+book_name)
+	print(files)
+	for f in files:
+		merger.append(PdfFileReader('flaskps/static/uploads/'+book_name+'/'+f, 'rb'))
+	merger.write('flaskps/static/uploads/'+book_name+'/'+book_name+"_Full.pdf")

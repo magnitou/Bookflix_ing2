@@ -50,11 +50,19 @@
                                 <td>{{ book.isbn}}</td>
                                 <td>{{ book.titulo}}</td>
                                 <td>{{ book.autor_id}}</td>
-                                <td><a href ="{{ url_for('book_meta_edit', isbn = book.isbn)}}">Editar</a></td>
-                                <td><a href ="{{ url_for('book_meta_remove', isbn = book.isbn)}}">Eliminar Meta</a></td>
-                                <td><a class="btn btn-link" href="{{url_for('book_new', isbn = book.isbn)}}">Cargar Libro</a></td>
-                                <td><a class="btn btn-link" href="{{url_for('book_new_chapter', isbn = book.isbn)}}">Cargar Capitulo</a></td>
-                                <td><a class="btn btn-link" href="{{url_for('book_new_chapter', isbn = book.isbn)}}">Cargar Capitulo</a></td>
+                                <td>
+                                    {% if canReadBook[books.index(book)] %}
+                                        <a class="btn btn-link" href="{{url_for('book_open', isbn = book.isbn)}}">Abrir Libro</a>    
+                                    {% endif %}
+                                    {% if hasChapters[books.index(book)] %}
+                                        <a class="btn btn-link" href="{{url_for('book_cap_menu', isbn = book.isbn)}}">Abrir Capitulos</a>    
+                                    {% endif %}
+                                </td>
+                                <td><a href ="{{ url_for('book_meta_edit', isbn = book.isbn)}}">Editar</a>
+                                <a href ="{{ url_for('book_meta_remove', isbn = book.isbn)}}">Eliminar Meta</a></td>
+                                <td><a class="btn btn-link" href="{{url_for('book_new', isbn = book.isbn)}}">Cargar Libro</a>
+                                <a class="btn btn-link" href="{{url_for('book_date_menu', isbn = book.isbn)}}">Modificar Disponibilidad</a>
+                                <a class="btn btn-link" href="{{url_for('book_new_chapter', isbn = book.isbn)}}">Cargar Capitulo</a></td>
                                 
                             </tr>
                             {% endfor %}

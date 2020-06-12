@@ -47,6 +47,33 @@ class Book(object):
         cursor.execute(sql, isbn)
         cls.db.commit()
         return True
+
+    @classmethod
+    def updateDate_allChap(cls, isbn, data):
+        sql = "UPDATE capitulo SET available_from = %s, available_to = %s WHERE isbn = %s"
+        cursor = cls.db.cursor()
+        cursor.execute(sql, (data.get('available_from') ,data.get('available_to') if data.get('available_to')!='' else None, isbn) ) 
+        cls.db.commit()
+        return True
+
+    @classmethod
+    def updateDate_oneChap(cls, isbn, num, data):
+        sql = "UPDATE capitulo SET available_from = %s, available_to = %s WHERE isbn = %s and num=%s"
+        cursor = cls.db.cursor()
+
+        cursor.execute(sql, (data.get('available_from') ,data.get('available_to') if data.get('available_to')!='' else None, isbn, num) ) 
+        cls.db.commit()
+        return True
+
+    @classmethod
+    def updateDate_book(cls, isbn, data):
+        sql = "UPDATE libro SET available_from = %s, available_to = %s WHERE isbn = %s"
+        cursor = cls.db.cursor()        
+        cursor.execute(sql, (data.get('available_from'), data.get('available_to') if data.get('available_to')!='' else None, isbn) ) 
+        cls.db.commit()
+        return True
+
+    
     #GETS
     @classmethod     
     def allMeta(cls):
@@ -59,6 +86,14 @@ class Book(object):
             meta['editorial_id'] = Editorial.find_by_id(meta['editorial_id'])['nombre']
             meta['genero_id'] = Genero.find_by_id(meta['genero_id'])['nombre']
         return metas
+
+    @classmethod     
+    def allChapter(cls, isbn):
+        sql = 'SELECT * FROM capitulo WHERE isbn = %s'
+        cursor = cls.db.cursor()
+        cursor.execute(sql, (isbn))        
+        return cursor.fetchall()
+
 
     @classmethod
     def find_by_isbn(cls, isbn):

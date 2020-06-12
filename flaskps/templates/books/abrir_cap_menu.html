@@ -1,0 +1,34 @@
+{% extends "books/bookBase.html" %}
+
+{% block main %}
+    
+
+
+    <div class="container">
+            <div class="row">
+                <div class="col-md-20">
+                    <div class="panel panel-primary" >
+                        <div class="panel-heading">                                                                                
+                                <h4 class="panel-title">Capitulos de {{titulo}}</h4>            
+                        </div>
+                        
+                        <br>
+                    </div>
+                    <br>                                        
+                    
+                    {% for capitulo in capitulos%}
+                        {% if noDisponibles[capitulos.index(capitulo)] %}
+                        Capitulo {{capitulo.num}} (Capitulo aun no disponible)
+                        {% elif vencidos[capitulos.index(capitulo)] %}
+                            Capitulo {{capitulo.num}} (Capitulo vencido)
+                        {% else %}
+                            <a class="btn btn-link" href="{{url_for('book_open_cap', isbn=isbn, num = capitulo.num)}}">Capitulo {{capitulo.num}}</a>
+                        {% endif %}
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+
+    
+{% endblock %}
