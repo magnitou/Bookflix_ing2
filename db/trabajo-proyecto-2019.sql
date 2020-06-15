@@ -98,6 +98,9 @@ CREATE TABLE `metadato`(
   CONSTRAINT FK_metadato_genero_id FOREIGN KEY (genero_id) REFERENCES genero(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+
+
 DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (

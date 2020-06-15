@@ -291,6 +291,7 @@ def open_book(isbn): #aca abre el libro guardado
     set_db()
     titulo = Book.find_meta_by_isbn(isbn)['titulo']
     nombre = titulo+"_Full"
+    print(nombre)
     return render_template('books/abrirlibro.html', titulo=titulo, nombre=nombre)
 
 def open_cap_menu(isbn):
