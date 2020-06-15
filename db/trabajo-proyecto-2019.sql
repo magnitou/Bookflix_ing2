@@ -234,7 +234,7 @@ CREATE TABLE `usuario_tiene_rol` (
 
 LOCK TABLES `usuario_tiene_rol` WRITE;
 /*!40000 ALTER TABLE `usuario_tiene_rol` DISABLE KEYS */;
-INSERT INTO `usuario_tiene_rol` VALUES (1,1),(2,2),(3,1), (4,2);
+INSERT INTO `usuario_tiene_rol` VALUES (1,1),(2,2),(3,1);
 /*!40000 ALTER TABLE `usuario_tiene_rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
