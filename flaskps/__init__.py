@@ -99,8 +99,15 @@ app.add_url_rule("/novedades/create", "novedad_create", novedad.create,methods=[
 app.add_url_rule("/novedades", "novedad_index", novedad.index)
 
 #CRUD trailers
-app.add_url_rule("/trailers/new", "trailer_new", trailer.new)
-app.add_url_rule("/trailers/create", "trailer_create", trailer.create,methods=['POST'])
+app.add_url_rule("/trailers", 'trailer_menu', trailer.render_menu)
+app.add_url_rule("/trailers/new", 'trailer_new', trailer.new)
+app.add_url_rule("/trailers/remove/<int:id>", "trailer_remove", trailer.remove_trailer)
+app.add_url_rule("/trailers/edit_trailer/<int:id>", "trailer_edit", trailer.edit_trailer)
+app.add_url_rule("/trailers/edit_trailer/<int:id>", "trailer_load_edit", trailer.load_edit, methods=['POST'])
+app.add_url_rule("/trailer/create", 'trailer_create', trailer.render_trailer)
+app.add_url_rule("/trailer/create", 'trailer_load', trailer.load_trailer, methods=['POST'])
+
+
 
 
 @app.route("/")
