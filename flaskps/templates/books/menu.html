@@ -10,29 +10,30 @@
                     <div class="panel panel-primary" >
                         <div class="panel-heading">
                                 
-                                <a class="btn btn-link" href="{{url_for('book_meta')}}">Cargar Metadatos</a>
-                                <br>
+                                <a class="btn btn-link" href="{{url_for('book_meta')}}">Cargar Metadatos</a>                                
                                 <a class="btn btn-link" href="{{url_for('author_new')}}">Cargar Autor</a>
                                 <a class="btn btn-link" href="{{url_for('editorial_new')}}">Cargar Editorial</a>
                                 <a class="btn btn-link" href="{{url_for('genero_new')}}">Cargar Genero</a>
-                            <br>
+                            
                             <br>
                                 <h3 class="panel-title">Libros</h3>
                         </div>
-                        <br>
-                        <h3 class="panel-title">Buscar Libro</h3>
-                        <br>
-                        <form action="{{ url_for('book_search') }}" method="POST" class="navbar-form navbar-left">
+                        <br>                        
+                        <form class="form-inline" action="{{ url_for('book_search') }}" method="POST" class="navbar-form navbar-left">
                             <div class="form-group">
-                                <input type="text" required class="form-control" name="nombre" placeholder="Buscar">
-                            </div>
-                            <div class="form-group">                                
-                                <select required name="busqueda" class="form-control">
-                                    <option class ="form-control" value="titulo">Titulo</option>
-                                    <option class ="form-control" value="editorial">Editorial</option>
-                                    <option class ="form-control" value="autor">Autor</option>
-                                    <option class ="form-control" value="genero">Genero</option>
-                                </select>
+                                <div class="input-field first-wrap">
+                                    <input type="text" required class="form-control" name="nombre" placeholder="Buscar por">                                                        
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-control">
+                                    <select required name="busqueda" class="form-control">
+                                        <option class ="form-control" value="titulo">Titulo</option>
+                                        <option class ="form-control" value="editorial_id">Editorial</option>
+                                        <option class ="form-control" value="autor_id">Autor</option>
+                                        <option class ="form-control" value="genero_id">Genero</option>
+                                    </select>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-default">Buscar</button>
                         </form>

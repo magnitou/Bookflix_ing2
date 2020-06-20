@@ -33,13 +33,15 @@ def render_menu():
 
 def search():
     def filter_by(criteria, name, book):
-        return name in book[criteria]
+        return name in book[criteria].lower()
 
     set_db()
     books = Book.allMeta()
     criteria = request.form.get('busqueda')
-    name = request.form.get('nombre')
+    name = request.form.get('nombre').lower()
+    print(name)
     selected = list(filter(lambda book: filter_by(criteria, name, book), books))
+    print(selected)
     venc = list(map(lambda meta: validate_date(meta['isbn']), selected))
     hasChapters = list(map(lambda meta: Book.allChapter(meta['isbn'])!=(), selected))
     i = int(request.args.get('i',0))
@@ -50,7 +52,7 @@ def search():
     elif (i*pag >= len(books)):
         i = i - 1
     adm = "configuracion_usarInhabilitado" in session['permisos'] #Permiso que solo tiene un administrador
-    return render_template('books/menu.html', books=books, i=i, pag=pag, adm=adm, canReadBook=venc, hasChapters=hasChapters)
+    return render_template('books/menu.html', books=selected, i=i, pag=pag, adm=adm, canReadBook=venc, hasChapters=hasChapters)
 
 #creacion de libros
 def new(isbn):
