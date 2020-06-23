@@ -11,11 +11,29 @@ from flaskps.helpers.mergepdf import merger
 import datetime as dt
 import os
 
+def search_by():
+    def filter_by(criteria, name, book):
+        return name in book[criteria].lower()
+    
+    set_db()
+    books = Book.allMeta()
+    criteria = request.form.get('busqueda')
+    name = request.form.get('nombre').lower()
+    selected = list(filter(lambda book: filter_by(criteria, name, book), books))
 
+    return selected
+
+def history():
+    return Book.get_last_read(session['usuario']) #ACA SERIA session['perfil']
 
 def render_menu():
     set_db()    
-    books = Book.allMeta()    
+    book_for={}
+    book_type = request.args.get('type','all')    
+    book_for['all'] = Book.allMeta
+    book_for['search_by'] = search_by if request.form.get('nombre') is not None else Book.allMeta
+    book_for['history'] = history
+    books = book_for[book_type]()
     venc = list(map(lambda meta: validate_date(meta['isbn']), books))
     hasChapters = list(map(lambda meta: Book.allChapter(meta['isbn'])!=(), books))
     print("Lista de tiene capitulos")
@@ -312,9 +330,12 @@ def date_chap(isbn, num):
 def open_book(isbn): #aca abre el libro guardado
     print("abro")
     set_db()
+    historial = Book.get_last_read(session['usuario']) #ACA SERIA session['perfil']
+    print(historial)
     titulo = Book.find_meta_by_isbn(isbn)['titulo']
     nombre = titulo+"_Full"
     print(nombre)
+    Book.record_open(nombre, session['usuario'], dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) #ACA SERIA session['perfil']
     return render_template('books/abrirlibro.html', titulo=titulo, nombre=nombre)
 
 def open_cap_menu(isbn):
@@ -329,8 +350,10 @@ def open_cap_menu(isbn):
 def open_cap(isbn, num):
     print("abro capitulo")
     set_db()
+    historial = Book.get_last_read(session['usuario']) #ACA SERIA session['perfil']
     titulo = Book.find_meta_by_isbn(isbn)['titulo']
     nombre = titulo+"_cap_"+str(num)
+    Book.record_open(nombre, session['usuario'], dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) #ACA SERIA session['perfil']
     return render_template('books/abrirlibro.html', titulo=titulo, nombre=nombre)
 
 def validate_meta_isbn(isbn):
