@@ -1,0 +1,464 @@
+body{
+    background-color: #353645!important;
+}
+
+
+#wrap {
+    width: 1200px;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    margin-top: 25px
+}
+
+#intoWrap {
+    border: 1px solid #c5c5c5;
+    margin: 20px;
+}
+
+#searchNav{
+    background: #4c394e;
+    font-weight: 400;
+    left: 0;
+    padding: 10px;
+    position: fixed;
+    text-transform: uppercase;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    text-align: center;
+}
+
+#searchNav a {
+    margin: 4px;
+    color: #c5c5c5;
+    font: 13px 'Jost', sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 1px solid #c5c5c5
+}
+
+#searchNav a:hover{
+    border-bottom: 2px solid #0000; 
+    transition: all 1.2s ease-in-out;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** LOGO DE LA PAGINA **********************************************************/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+
+.logo{
+    color: #fbfbfb;
+    text-shadow: 1px 1px 0 #ececec, -1px 1px 0 #ececec, 1px -1px 0 #ececec, -1px -1px 0 #ececec;
+    font-family: 'Abril Fatface', cursive;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 56px;
+    position: relative;
+    left: 140px;
+    top: 76px;
+    width: 0;
+}
+
+.logo_img {
+    width: 120px;
+    margin: 20px;
+    display: inline-block;
+}
+
+#navbar {
+    display: inline-block;
+    padding: 10px;
+    vertical-align: top;
+    margin-top: 50px;
+    height: 66px;
+    width: 940px;
+}
+
+#navbar a,#navbar label {
+    border: 1px solid white;
+    border-bottom: 1px solid #4c394e;
+    padding: 10px;
+    margin: 2px;
+    color:#4c394e;
+    font: 14px 'Jost', sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+form.form-inline.ml-auto {
+    width: 300px;
+    margin-top: -42px;
+}
+
+button.btn.btn-outline-white.btn-md.my-0.ml-sm-2 {
+    background: #4c394e;
+    color: white;
+}
+
+.profileNav {
+    margin-left: 6px!important;
+}
+
+.fas{
+    margin-right: 2px;
+}
+
+.navProfile a {
+    display: block!important;
+    text-align: center;
+    background: transparent!important;
+    border-bottom: 1px solid #c5c5c5!important;
+    border-left: 0px!important;
+    border-top: 0px!important;
+    border-right: 0px!important;
+    font-size: 10px!important;
+}
+
+.navProfile {
+    display: none;
+}
+
+.navProfile a{
+    display: block!important; 
+    text-align: center;
+}
+
+
+
+
+
+
+
+.newsBg{
+    padding: 20px; 
+    background: #4c394e; 
+    margin: 0 auto;
+
+}
+
+.triangle{
+    clip-path: polygon(100% 4%, 0 42%, 100% 43%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.textSlide {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 10px;
+    position: absolute;
+    width: 628px;
+    height: 320px;
+    text-align: justify;
+    display: inline-block;
+    vertical-align: top;
+    background: #0000008f;
+    font: 14px arial;
+}
+
+.textAbout {
+    height: 200px;
+    width: 560px;
+    margin: 0 auto;
+}
+
+.textGen {
+    padding: 14px;
+    background: #4c394e;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.textSlide h2{
+    font: 20px 'Jost', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 10px;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+.fade:not(.show) {
+    opacity: 1!important;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+
+.slideImg{
+    width: 270px;
+    height: 320px;
+    margin-left: 20px;
+}
+
+
+.mySlides.fade {
+    padding: 20px;
+    background: #ffffff80;
+}
+
+
+
+
+.checked {
+  color: gold;
+  text-shadow: 0px 1px 6px white;
+}
+
+
+
+
+
+
+form.form-inline.d-flex.justify-content-center.md-form.form-sm.mt-0 {
+    display: inline-block!important;
+    width: 300px;
+}
+
+
+
+
+
+
+
+
+.latestBooks {
+    padding: 20px;
+    margin: 0 auto;
+    width: 1080px;
+    margin-top: 20px;
+    border: 1px solid #c5c5c5;
+    margin-bottom: 20px;
+}
+
+
+.lastBox {
+    width: 142px;
+    height: 280px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.lastBox img {
+    width: 120px;
+}
+
+.lastBox h3 {
+    font: 16px 'Jost', sans-serif;
+    text-transform: uppercase;
+    line-height: 90%;
+    margin-top: 4px;
+}
+
+
+p.authorBox {
+    font-family: arial;
+    font-size: 16px;
+    margin: 0;
+}
+
+
+.lastBox span {
+    font-size: 12px;
+    text-align: center;
+}
+
+
+.latestBooks h1 {
+    font: 20px 'Jost', sans-serif;
+    text-transform: uppercase;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+
+.footerCredits {
+    background: #4c394e;
+    width: 1200px;
+    height: 140px;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    color: #c5c5c5;
+    font: 16px 'Jost', sans-serif;
+    text-align: center;
+    padding-top: 40px;
+}
+
+
+.footerCredits a {
+    color: #c5c5c5;
+    text-transform: uppercase;
+}
+
+
+
+
+
+.soyuncosito img {
+    width: 160px;
+    display: inline-block;
+}
+
+
+.soyuncosito {
+    width: 508px;
+    margin: 4px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #c5c5c5;
+}
+
+
+.soyuncosito h3 {
+    font: 16px 'Jost', sans-serif;
+    text-transform: uppercase;
+    line-height: 90%;
+    margin-top: 4px;
+    text-align: justify;
+}
+
+
+p.bookInfo {
+    font-family: arial;
+    font-size: 16px;
+    margin: 0;
+    line-height: 94%;
+    margin-top: -3px;
+}
+
+
+.soylainfo {
+    display: inline-block;
+    width: 321px;
+    height: 226px;
+    vertical-align: top;
+    padding: 10px;
+}
+
+
+p.bookPlot {
+    font-size: 13px;
+    text-align: justify;
+    height: 140px;
+    overflow: auto;
+    width: 300px;
+    margin: 0 auto;
+}
+
+
+.cosasdeadmin {
+    padding: 10px;
+    background: #4c394e;
+    font: 11px 'Jost', sans-serif;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+
+.latestBooks h2 {
+    font: 16px 'Jost', sans-serif;
+    text-transform: uppercase;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+
+.latestBooks a {
+    color: #4c394e;
+    text-decoration: none!important;
+}
+
+h2.adminLinks {
+    width: 200px;
+    display: inline-block;
+    margin: 3px;
+    text-align: center;
+}
+
+.latestBooks a:hover{
+    color: grey;
+}
