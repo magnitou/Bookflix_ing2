@@ -18,34 +18,85 @@
 	<body>
         <br>
 		<div id="wrap">
-			<div id="searchNav"><a href="/Bookflix"><i class="fas fa-users" aria-hidden="true"></i>Usuarios</a><a href="/Bookflix"><i class="fas fa-newspaper"></i>Novedades</a><a href="/Bookflix"><i class="fas fa-book-open"></i>Libros</a><a href="/Bookflix"><i class="fas fa-wrench"></i>Configuración</a></div>
+			<div id="superNav"><a href="/Bookflix"><i class="fas fa-users" aria-hidden="true"></i>Usuarios</a><a href="/Bookflix"><i class="fas fa-newspaper"></i>Novedades</a><a href="/Bookflix"><i class="fas fa-book-open"></i>Libros</a><a href="/Bookflix"><i class="fas fa-wrench"></i>Configuración</a></div>
 			<div id="intoWrap">
 				<img src="https://i.imgur.com/cACkaa3.png" class="logo_img">
 				<div id="navbar"><a href="/Bookflix"><i class="fas fa-home" aria-hidden="true"></i>Inicio</a><label class="profileNav" for="toggle-oculto1"><i class="fas fa-user" aria-hidden="true"></i>Usuario</label><a href="/Bookflix"><i class="fas fa-user-plus" aria-hidden="true"></i>Registro</a><a href="/Bookflix"><i class="fas fa-users" aria-hidden="true"></i>Ingreso</a><form class="form-inline ml-auto"><div class="md-form my-0"><input class="form-control" type="text" placeholder="Buscar..." aria-label="Search"></div><button href="#!" class="btn btn-outline-white btn-md my-0 ml-sm-2" type="submit">Buscar</button></form></div>
 				
 
 			<div class="latestBooks"><h2 class="adminLinks"><a href="/">Cargar metadatos</a></h2><h2 class="adminLinks"><a href="/">Cargar Autor</a></h2><h2 class="adminLinks"><a href="/">Cargar Editorial</a></h2><h2 class="adminLinks"><a href="/">Cargar Genero</a></h2><h2 class="adminLinks"><a href="/">Cargar Trailer</a></h2></div>	
-			<div class="latestBooks">
-				<h1>Últimos libros:</h1>
 
-				<div class="soyuncosito"><img src="https://images-na.ssl-images-amazon.com/images/I/71ykU-RQ0nL._AC_SY741_.jpg">
-					<div class="soylainfo">
+			<div class="latestBooks adminView">
+				<h1>Listado de libros: (ADMIN)</h1>
+				<table>
+    <tr>
+      <th>ISBN</th>
+      <th>TITULO</th>
+      <th>AUTOR</th>
+      <th>METADATOS</th>
+      <th>CARGAR</th>
+      <th>ELIMINAR</th>
+      <th>DISPONIBILIDAD</th>
+    </tr>
+    <tr>
+      <td>9780545582957</td>
+      <td>Harry Potter y el Caliz de Fuego</td>
+      <td>JK Rowling</td>
+      <td><a href="/">Editar metadatos</a><a href="/">Eliminar metadatos</a></td>
+      <td><a href="/">Cargar Libro</a><a href="/">Cargar capitulo</a><a href="/">Cargar trailer</a></td>
+      <td><a href="/">Eliminar libro</a><a href="/">Eliminar capitulo</a><a href="/">Eliminar archivo de libro</a></td>
+      <td><a href="/">Modificar disponibilidad</a></td>
+    </tr>
+    <tr>
+      <td>9780545582957</td>
+      <td>Harry Potter y el Caliz de Fuego</td>
+      <td>JK Rowling</td>
+      <td><a href="/">Editar metadatos</a><a href="/">Eliminar metadatos</a></td>
+      <td><a href="/">Cargar Libro</a><a href="/">Cargar capitulo</a><a href="/">Cargar trailer</a></td>
+      <td><a href="/">Eliminar libro</a><a href="/">Eliminar capitulo</a><a href="/">Eliminar archivo de libro</a></td>
+      <td><a href="/">Modificar disponibilidad</a></td>
+    </tr>
+    <tr>
+      <td>9780545582957</td>
+      <td>Harry Potter y el Caliz de Fuego</td>
+      <td>JK Rowling</td>
+      <td><a href="/">Editar metadatos</a><a href="/">Eliminar metadatos</a></td>
+      <td><a href="/">Cargar Libro</a><a href="/">Cargar capitulo</a><a href="/">Cargar trailer</a></td>
+      <td><a href="/">Eliminar libro</a><a href="/">Eliminar capitulo</a><a href="/">Eliminar archivo de libro</a></td>
+      <td><a href="/">Modificar disponibilidad</a></td>
+    </tr>
+  </table>
+</div>
+
+			<div class="latestBooks">
+				<h1>Últimos libros: (user)</h1>
+				<div class="bookBox"><img src="https://images-na.ssl-images-amazon.com/images/I/71ykU-RQ0nL._AC_SY741_.jpg">
+					<div class="bookInfo">
 					<h3>Harry Potter y El Caliz De Fuego</h3>
-					<p class="bookPlot">"Habrá tres pruebas, espaciadas en el curso escolar, que medirán a los campeones en muchos aspectos diferentes: sus habilidades mágicas, su osadía, sus dotes de deducción y, por supuesto, su capacidad para sortear el peligro."</p>JK Rowling ISBN</div>
-				<div class="cosasdeadmin">Cargar libro - Cargar trailer - Modificar disponibilidad - Cargar Capitulo</div>
+					<p class="bookPlot">"Habrá tres pruebas, espaciadas en el curso escolar, que medirán a los campeones en muchos aspectos diferentes: sus habilidades mágicas, su osadía, sus dotes de deducción y, por supuesto, su capacidad para sortear el peligro."</p>
+					<p class="bookData">JK Rowling</p></div>
 				</div>
 
-<div class="soyuncosito"><img src="https://images-na.ssl-images-amazon.com/images/I/71ykU-RQ0nL._AC_SY741_.jpg">
-					<div class="soylainfo">
+<div class="bookBox"><img src="https://images-na.ssl-images-amazon.com/images/I/71ykU-RQ0nL._AC_SY741_.jpg">
+					<div class="bookInfo">
 					<h3>Harry Potter y El Caliz De Fuego</h3>
-					<p class="bookPlot">"Habrá tres pruebas, espaciadas en el curso escolar, que medirán a los campeones en muchos aspectos diferentes: sus habilidades mágicas, su osadía, sus dotes de deducción y, por supuesto, su capacidad para sortear el peligro."</p>JK Rowling <br> ISBN</div>
-				<div class="cosasdeadmin">Cargar libro - Cargar trailer - Modificar disponibilidad - Cargar Capitulo</div>
+					<p class="bookPlot">"Habrá tres pruebas, espaciadas en el curso escolar, que medirán a los campeones en muchos aspectos diferentes: sus habilidades mágicas, su osadía, sus dotes de deducción y, por supuesto, su capacidad para sortear el peligro."</p>
+					<p class="bookData">JK Rowling</p></div>
 				</div>
 
 
 			</div>
 
-
+<div class="paginationBookflix">
+  <a href="#">&laquo;</a>
+  <a href="#">1</a>
+  <a href="#" class="active">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
+  <a href="#">5</a>
+  <a href="#">6</a>
+  <a href="#">&raquo;</a>
+</div>
 		
 
 
