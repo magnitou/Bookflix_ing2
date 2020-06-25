@@ -689,7 +689,7 @@ p.comentP {
 }
 
 
-.registro_content input[type="submit"] {
+.registro_content input[type="submit"], .latestBooks.searchView button {
     background: #4c394e;
     border-radius: .25rem;
     padding: 4px;
@@ -703,6 +703,47 @@ p.comentP {
 .registro_content.loginView input {
     width: 280px;
 }
+
+
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** VISTA DE USUARIOS **********************************************************/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+.latestBooks.searchView input {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.latestBooks.searchView{
+    text-align: center;
+}
+
+.latestBooks.searchView button{
+    margin-top: 4px;
+}
+
+
+.latestBooks.userOptions{
+    width: initial!important;
+    text-align: center;
+}
+
+a.optionUser{
+    width: 200px;
+    display: inline-block!important;
+    margin-top: 14px!important;
+    margin-bottom:20px!important;
+}
+
+.latestBooks.adminView{
+    text-align: center;
+}
+
+.latestBooks.adminView h1{
+    text-align: left!important;
+}
+
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------*/
 /********************************************************** PAGINACIÓN DE LA PAGINA **********************************************************/
