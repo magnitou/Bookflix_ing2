@@ -645,6 +645,58 @@ p.comentP {
     text-align: justify;
     padding: 10px;
 }
+
+
+
+
+/*-------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** LOGIN VIEW **********************************************************/
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+.latestBooks.loginView {
+    width: 700px!important;
+}
+
+.latestBooks.loginView h1{
+    text-align: center;
+}
+
+.registro_content {
+    text-align: center;
+}
+
+.registro_content {
+    text-align: center;
+    padding: 10px;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.registro_content label {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.registro_content input {
+    color: black;
+    padding: 4px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    background: white;
+}
+
+
+.registro_content button {
+    background: #4c394e;
+    border-radius: .25rem;
+    padding: 4px;
+    width: 120px;
+    color: white;
+    border: 1px solid #4c394e;
+}
+
 /*--------------------------------------------------------------------------------------------------------------------------------------------*/
 /********************************************************** PAGINACIÓN DE LA PAGINA **********************************************************/
 /*------------------------------------------------------------------------------------------------------------------------------------------*/
