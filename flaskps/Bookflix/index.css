@@ -14,34 +14,7 @@ body{
 #intoWrap {
     border: 1px solid #c5c5c5;
     margin: 20px;
-}
-
-#searchNav{
-    background: #4c394e;
-    font-weight: 400;
-    left: 0;
-    padding: 10px;
-    position: fixed;
-    text-transform: uppercase;
-    top: 0;
-    width: 100%;
-    z-index: 999;
-    text-align: center;
-}
-
-#searchNav a {
-    margin: 4px;
-    color: #c5c5c5;
-    font: 13px 'Jost', sans-serif;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: inline-block;
-    border-bottom: 1px solid #c5c5c5
-}
-
-#searchNav a:hover{
-    border-bottom: 2px solid #0000; 
-    transition: all 1.2s ease-in-out;
+    padding-bottom: 60px;
 }
 
 
@@ -68,6 +41,44 @@ body{
     display: inline-block;
 }
 
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** NAVBAR SUPERIOR **********************************************************/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+
+#superNav{
+    background: #4c394e;
+    font-weight: 400;
+    left: 0;
+    padding: 10px;
+    position: fixed;
+    text-transform: uppercase;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    text-align: center;
+}
+
+#superNav a {
+    margin: 4px;
+    color: #c5c5c5;
+    font: 13px 'Jost', sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 1px solid #c5c5c5
+}
+
+#superNav a:hover{
+    border-bottom: 2px solid #0000; 
+    transition: all 1.2s ease-in-out;
+}
+
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** NAVBAR INFERIOR (LATERAL LOGO) **********************************************************/
+/*-------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 #navbar {
     display: inline-block;
     padding: 10px;
@@ -89,6 +100,12 @@ body{
     display: inline-block;
 }
 
+.fas{
+    margin-right: 2px;
+}
+
+
+/*PERSONALIZACIÓN DE BUSQUEDA*/
 
 form.form-inline.ml-auto {
     width: 300px;
@@ -100,60 +117,18 @@ button.btn.btn-outline-white.btn-md.my-0.ml-sm-2 {
     color: white;
 }
 
-.profileNav {
-    margin-left: 6px!important;
-}
-
-.fas{
-    margin-right: 2px;
-}
-
-.navProfile a {
-    display: block!important;
-    text-align: center;
-    background: transparent!important;
-    border-bottom: 1px solid #c5c5c5!important;
-    border-left: 0px!important;
-    border-top: 0px!important;
-    border-right: 0px!important;
-    font-size: 10px!important;
-}
-
-.navProfile {
-    display: none;
-}
-
-.navProfile a{
-    display: block!important; 
-    text-align: center;
-}
 
 
 
-
-
-
-
+/*----------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** SLIDER DE NOVEDADES **********************************************************/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
 .newsBg{
     padding: 20px; 
     background: #4c394e; 
     margin: 0 auto;
 
 }
-
-.triangle{
-    clip-path: polygon(100% 4%, 0 42%, 100% 43%);
-}
-
-
-
-
-
-
-
-
-
-
 
 
 /* Slideshow container */
@@ -282,15 +257,10 @@ button.btn.btn-outline-white.btn-md.my-0.ml-sm-2 {
 }
 
 
-
-
 .checked {
   color: gold;
   text-shadow: 0px 1px 6px white;
 }
-
-
-
 
 
 
@@ -302,9 +272,9 @@ form.form-inline.d-flex.justify-content-center.md-form.form-sm.mt-0 {
 
 
 
-
-
-
+/*----------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** CSS DE LIBROS (INDEX) **********************************************************/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
 
 .latestBooks {
     padding: 20px;
@@ -355,6 +325,366 @@ p.authorBox {
 }
 
 
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** CSS DE LIBROS (/LIBROS) **********************************************************/
+/*------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*INICIO DE VISTA DE USUARIO*/
+.bookBox {
+    width: 508px;
+    margin: 4px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #c5c5c5;
+}
+
+.bookBox img {
+    width: 160px;
+    display: inline-block;
+}
+
+
+.bookBox h3 {
+    font: 16px 'Jost', sans-serif;
+    text-transform: uppercase;
+    line-height: 90%;
+    margin-top: 4px;
+    text-align: justify;
+}
+
+
+.bookInfo {
+    display: inline-block;
+    width: 321px;
+    height: 226px;
+    vertical-align: top;
+    padding: 10px;
+}
+
+
+p.bookPlot {
+    font-size: 13px;
+    text-align: justify;
+    height: 150px;
+    overflow: auto;
+    width: 300px;
+    margin: 0 auto;
+}
+
+p.bookData {
+    background: #4c394e;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font: 13px 'Jost', sans-serif;
+    text-transform: uppercase;
+}
+
+.latestBooks h2 {
+    font: 16px 'Jost', sans-serif;
+    text-transform: uppercase;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+/*FIN DE VISTA DE USUARIO*/
+
+
+/*INICIO DE VISTA DE ADMINISTRADOR*/
+
+.latestBooks a {
+    color: #4c394e;
+    text-decoration: none!important;
+}
+
+h2.adminLinks {
+    width: 200px;
+    display: inline-block;
+    margin: 3px;
+    text-align: center;
+}
+
+.latestBooks a:hover{
+    color: grey;
+}
+
+
+.latestBooks.adminView a{
+    background: #4c394e;
+    padding: 3px;
+    text-align: center;
+    color: white!important;
+    border-radius: 10px;
+    font: 13px 'Jost', sans-serif;
+    text-transform: uppercase;
+    display: block;
+    margin: 2px
+}
+
+
+
+.latestBooks.adminView table tr:first-child {
+    border-bottom: 1px solid #c5c5c5;
+    text-align: center!important;
+}
+
+.latestBooks.adminView table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.latestBooks.adminView th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+.latestBooks.adminView tr:nth-child(even) {background-color: #f2f2f2;}
+
+
+.latestBooks.adminView tr{
+border: 1px solid #c5c5c5;
+}
+
+/*FIN DE VISTA DE ADMINISTRADOR*/
+
+
+
+
+
+
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** VISTA INDIVIDUAL DE LIBROS **********************************************************/
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.latestBooks.favView {
+    padding: 10px!important;
+    height: 65px!important;
+    width: initial!important;
+    text-align: right;
+    margin-top: 0px!important;
+    margin-bottom: 10px!important;
+}
+
+.latestBooks.comentView{
+    width: initial!important;
+}
+
+.bookBox.indView {
+    width: 1038px;
+    margin: 0!important;
+}
+
+.bookBox.indView img {
+    width: 220px!important;
+}
+
+.bookInfo.indView {
+    width: 500px!important;
+}
+
+p.bookPlot.indView {
+    width: 450px!important;
+    height: 172px!important;
+    margin-top: 10px;
+}
+
+.bookInfo.sndView {
+    width: 287px!important;
+    height: 278px!important;
+    border-left: 1px solid #c5c5c5;
+    padding: 10px;
+}
+
+.bookInfo.sndView h1{
+    text-align: center;
+}
+
+.bookInfo.sndView b{
+    display: block;
+}
+
+p.bookData.indView {
+    background: #4c394e;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font: 13px 'Jost', sans-serif;
+    text-transform: uppercase;
+    width: 795px;
+    margin-left: -14px;
+}
+
+span.fa.fa-heart, span.fa.fa-heart-broken{
+    -webkit-animation: tiembla 1.5s alternate infinite;}
+
+@-webkit-keyframes tiembla{
+  0%  { -webkit-transform:rotateZ(-5deg); }
+  50% { -webkit-transform:rotateZ( 0deg) scale(.8); }
+  100%{ -webkit-transform:rotateZ( 5deg); }
+}
+
+
+button.favBook {
+    display: inline-block;
+    font: 16px 'Jost', sans-serif;
+    margin-bottom: .5rem;
+    background: #4c394e;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    border: 0px;
+        transition: all 1.2s ease-in-out;
+}
+
+
+button.favBook:hover {
+    background: #c5c5c5;
+    transition: all 1.2s ease-in-out;
+    color: #4c394e
+}
+
+form.commentBook {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0!important;
+}
+
+
+
+
+
+
+
+
+
+.comentario_input {
+    min-width: 800px;
+    min-height: 150px!important;
+    border: 1px solid #c5c5c5;
+    padding: 10px;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.starArea {
+    background: #4c394e;
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+input.comentario_submit {
+    margin-top: 10px!important;
+}
+
+
+
+.comentario {
+    border: 1px solid #c5c5c5;
+    padding: 10px;
+}
+
+.opinion_info {
+    background: #4c394e;
+    padding: 10px;
+    color: white;
+    font: 16px 'Jost', sans-serif;
+    text-align: center;
+}
+
+.comentario1{
+    background: #4c394e;
+    width: 200px;
+    height: 230px;
+    font: 16px 'Jost', sans-serif;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.comentario1 p {
+    margin-top: 80px;
+}
+
+.resenacontenido {
+    display: inline-block;
+    width: 774px;
+    height: 230px;
+    padding: 10px;
+    border-top: 1px solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;
+    border-right: 1px solid #c5c5c5;
+}
+
+p.dateReview {
+    background: #4c394e;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    font: 16px 'Jost', sans-serif;
+}
+
+p.reviewContent {
+    font-size: 16px;
+    font-family: arial;
+    text-align: justify;
+    height: 166px;
+    padding: 10px 10px 0 10px;
+    overflow: auto;
+    margin-bottom: 0;
+}
+
+p.comentP {
+    font-size: 15px;
+    font-family: arial;
+    text-align: justify;
+    padding: 10px;
+}
+/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** PAGINACIÓN DE LA PAGINA **********************************************************/
+/*------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+.paginationBookflix {
+    float: right;
+    margin-right: 14px;
+}
+
+.paginationBookflix a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #c5c5c5;
+  margin: 0 4px;
+}
+
+.paginationBookflix a.active {
+  background-color: #4c394e;
+  color: white;
+  border: 1px solid #4c394e;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** FOOTER DE LA PAGINA **********************************************************/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
 .footerCredits {
     background: #4c394e;
     width: 1200px;
@@ -372,93 +702,4 @@ p.authorBox {
 .footerCredits a {
     color: #c5c5c5;
     text-transform: uppercase;
-}
-
-
-
-
-
-.soyuncosito img {
-    width: 160px;
-    display: inline-block;
-}
-
-
-.soyuncosito {
-    width: 508px;
-    margin: 4px;
-    display: inline-block;
-    padding: 10px;
-    border: 1px solid #c5c5c5;
-}
-
-
-.soyuncosito h3 {
-    font: 16px 'Jost', sans-serif;
-    text-transform: uppercase;
-    line-height: 90%;
-    margin-top: 4px;
-    text-align: justify;
-}
-
-
-p.bookInfo {
-    font-family: arial;
-    font-size: 16px;
-    margin: 0;
-    line-height: 94%;
-    margin-top: -3px;
-}
-
-
-.soylainfo {
-    display: inline-block;
-    width: 321px;
-    height: 226px;
-    vertical-align: top;
-    padding: 10px;
-}
-
-
-p.bookPlot {
-    font-size: 13px;
-    text-align: justify;
-    height: 140px;
-    overflow: auto;
-    width: 300px;
-    margin: 0 auto;
-}
-
-
-.cosasdeadmin {
-    padding: 10px;
-    background: #4c394e;
-    font: 11px 'Jost', sans-serif;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-
-.latestBooks h2 {
-    font: 16px 'Jost', sans-serif;
-    text-transform: uppercase;
-    border-bottom: 1px solid #c5c5c5;
-}
-
-
-.latestBooks a {
-    color: #4c394e;
-    text-decoration: none!important;
-}
-
-h2.adminLinks {
-    width: 200px;
-    display: inline-block;
-    margin: 3px;
-    text-align: center;
-}
-
-.latestBooks a:hover{
-    color: grey;
 }
