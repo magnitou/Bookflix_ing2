@@ -417,7 +417,7 @@ h2.adminLinks {
     text-align: center;
     color: white!important;
     border-radius: 10px;
-    font: 13px 'Jost', sans-serif;
+    font-size: 14px;
     text-transform: uppercase;
     display: block;
     margin: 2px
@@ -689,7 +689,7 @@ p.comentP {
 }
 
 
-.registro_content input[type="submit"], .latestBooks.searchView button {
+.registro_content input[type="submit"], .latestBooks.searchView button,.editUserData{
     background: #4c394e;
     border-radius: .25rem;
     padding: 4px;
@@ -744,6 +744,30 @@ a.optionUser{
     text-align: left!important;
 }
 
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/********************************************************** VISTA DE PERFIL **********************************************************/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+
+.registro_content.loginView th {
+    padding: 10px;
+    text-align: center;
+    font: 14px 'Jost', sans-serif;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+.registro_content.loginView table{
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.registro_content.loginView a {
+    width: 200px!important;
+    color: white!important;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------*/
 /********************************************************** PAGINACIÓN DE LA PAGINA **********************************************************/
