@@ -26,19 +26,47 @@
 
 
 			<div class="latestBooks loginView">
-				<h1><i class="fa fa-user-plus" aria-hidden="true"></i> Iniciar sesión:</h1>
-				<div class="registro_content">
-					<form method="post" name="loggear">
-					    <div id="alerta"></div>
-						<label for="name">Nombre de usuario:</label>
+				<h1><i class="fa fa-user-plus" aria-hidden="true"></i> Registrar usuario:</h1>
+				<div class="registro_content loginView">
+					<form method="post" name="registerView">
+						<label>Correo:</label>
 						<br>
-                        <input type="text" id="usuario" name="nombreUsuario" required="">
+                        <input type="text" required="" id="requiredInput" name="correo">
                         <br><br>
-                        <label for="name">Contraseña:</label>
+                        <label>Nombre de usuario:</label>
+						<br>
+                        <input type="text" required="" name="usuario">
+                        <br><br>
+                        <label>Contraseña:</label>
                         <br>
-                        <input type="password" id="clave1" name="clave" required="">
+                        <input type="password" required="" id="clave1" name="clave">
                         <br><br>
-                        <input type="submit">
+                        <label>Nombre:</label>
+						<br>
+                        <input type="text" required="" name="nombre">
+                        <br><br>
+                        <label>Apellido:</label>
+						<br>
+                        <input type="text" required="" name="apellido">
+                        <br><br>
+                        <h1><i class="fa fa-credit-card" aria-hidden="true"></i> Datos de la tarjeta:</h1><br>
+                        <label>DNI del titular:</label>
+						<br>
+                        <input type="text" required="" name="dni">
+                        <br><br>
+                        <label>Numero de tarjeta:</label>
+						<br>
+                        <input type="text" required="" name="nroTarjeta">
+						<br><br>
+                        <label>Codigo de seguridad:</label>
+						<br>
+                        <input type="password" required="" name="codSeguridad">
+                        <br><br>
+                        <label>Fecha de vencimiento:</label>
+						<br>
+                        <input type="month" required="" name="fecha">
+                        <br><br>
+                        <input type="submit">      
 					</form>
 				</div>
 				
@@ -52,3 +80,4 @@
 
 </body>
 </html>
+
