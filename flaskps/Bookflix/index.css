@@ -554,7 +554,14 @@ form.commentBook {
 
 
 
+.latestBooks.adminView.bookView table {
+    width: 500px;
+    margin: 0 auto;
+}
 
+.latestBooks.adminView.bookView {
+    width: 540px!important;
+}
 
 
 
