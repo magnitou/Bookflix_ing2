@@ -78,11 +78,12 @@ app.add_url_rule("/libros/editar_meta/<string:isbn>", "book_load_meta_edit", boo
 app.add_url_rule("/libros/eliminar/<string:isbn>", "book_meta_remove", book.remove_meta)
 #Manejo de libros
 app.add_url_rule("/libros", 'book_menu', book.render_menu, methods=['POST', 'GET'])
+app.add_url_rule("/librosHistorial", 'book_historial', book.render_historial)
 app.add_url_rule("/libros_busqueda", 'book_search', book.search, methods=['POST'])
 app.add_url_rule("/librosver/<string:isbn>", 'book_open', book.open_book)
 app.add_url_rule("/librosver_cap/<string:isbn>", 'book_cap_menu', book.open_cap_menu)
 app.add_url_rule("/librosver_cap_abrir/<string:isbn>/<int:num>", 'book_open_cap', book.open_cap)
-
+app.add_url_rule("/librosver_any/<string:isbn>/<string:name>", 'book_open_any', book.open_any)
 #CRUD autor
 app.add_url_rule("/autor/new", 'author_new', autor.new)
 app.add_url_rule("/autor/create", "author_create", autor.create,methods=['POST'])

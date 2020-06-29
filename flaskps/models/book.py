@@ -74,9 +74,9 @@ class Book(object):
         return True
 
     @classmethod
-    def record_open(cls, filename, user, date):
-        sql = "INSERT INTO historial (archivo, usuario, fecha_ultima) values (%s, %s, %s) ON DUPLICATE KEY UPDATE archivo=%s, usuario=%s, fecha_ultima=%s"
-        data = (filename, user, date, filename, user, date)
+    def record_open(cls, filename, user, date, isbn, titulo):
+        sql = "INSERT INTO historial (isbn, titulo,archivo, usuario, fecha_ultima) values (%s, %s,%s, %s, %s) ON DUPLICATE KEY UPDATE isbn=%s, titulo=%s, archivo=%s, usuario=%s, fecha_ultima=%s"
+        data = (isbn, titulo,filename, user, date, isbn, titulo,filename, user, date)        
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
         cls.db.commit()
@@ -88,7 +88,9 @@ class Book(object):
         sql = "SELECT * FROM historial WHERE usuario=%s"
         cursor = cls.db.cursor()
         cursor.execute(sql, (user))
-        return cursor.fetchall().sort()
+        books = cursor.fetchall()
+        books.sort(key=lambda b: b['fecha_ultima'], reverse=True)# if books != () else None
+        return books
 
     @classmethod     
     def allMeta(cls):

@@ -10,6 +10,7 @@ from flaskps.models.genero import Genero
 from flaskps.helpers.mergepdf import merger
 import datetime as dt
 import os
+import re
 
 def search_by():
     def filter_by(criteria, name, book):
@@ -24,7 +25,8 @@ def search_by():
     return selected
 
 def history():
-    return Book.get_last_read(session['usuario']) #ACA SERIA session['perfil']
+    historial = Book.get_last_read(session['usuario']) #ACA SERIA session['perfil']    
+    return historial if historial is not None else []
 
 def render_menu():
     set_db()    
@@ -48,6 +50,37 @@ def render_menu():
         i = i - 1
     adm = "configuracion_usarInhabilitado" in session['permisos'] #Permiso que solo tiene un administrador
     return render_template('books/menu.html', books=books, i=i, pag=pag, adm=adm, canReadBook=venc, hasChapters=hasChapters)
+
+def render_historial():
+    set_db()        
+    books = history()    
+    areChapter = []
+    availables = []
+    today = dt.datetime.now()
+    for book in books:
+        if 'cap' in book['archivo']: #Forma de saber si es un cap, o el libro entero
+            areChapter.append(True)
+            isbn = book['isbn']
+            num = int(re.search(r'\d+', book['archivo']).group(0))
+            cap = Book.find_chapter_by_isbn(isbn, num)
+            book['titulo'] = book['titulo'] + '\nCap ' + str(num)
+            canRead = cap['available_from'] < today and ((cap['available_to'] is None) or cap['available_to'] > today)
+            availables.append(canRead)
+        else:
+            areChapter.append(False)
+            bok = Book.find_by_isbn(book['isbn'])
+            canRead = validate_date(bok['isbn'])
+            availables.append(canRead)
+
+    i = int(request.args.get('i',0))
+    Configuracion.db = get_db()
+    pag=Configuracion.get_page_size()
+    if (i == -1):
+        i=0
+    elif (i*pag >= len(books)):
+        i = i - 1
+    adm = "configuracion_usarInhabilitado" in session['permisos'] #Permiso que solo tiene un administrador
+    return render_template('books/history.html', books=books, i=i, pag=pag, adm=adm, availables=availables, areChapter=areChapter)
 
 def search():
     def filter_by(criteria, name, book):
@@ -335,7 +368,7 @@ def open_book(isbn): #aca abre el libro guardado
     titulo = Book.find_meta_by_isbn(isbn)['titulo']
     nombre = titulo+"_Full"
     print(nombre)
-    Book.record_open(nombre, session['usuario'], dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) #ACA SERIA session['perfil']
+    Book.record_open(nombre, session['usuario'], dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), isbn, titulo) #ACA SERIA session['perfil']
     return render_template('books/abrirlibro.html', titulo=titulo, nombre=nombre)
 
 def open_cap_menu(isbn):
@@ -353,8 +386,14 @@ def open_cap(isbn, num):
     historial = Book.get_last_read(session['usuario']) #ACA SERIA session['perfil']
     titulo = Book.find_meta_by_isbn(isbn)['titulo']
     nombre = titulo+"_cap_"+str(num)
-    Book.record_open(nombre, session['usuario'], dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) #ACA SERIA session['perfil']
+    Book.record_open(nombre, session['usuario'], dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), isbn, titulo) #ACA SERIA session['perfil']
     return render_template('books/abrirlibro.html', titulo=titulo, nombre=nombre)
+
+def open_any(isbn, name):
+    Book.db = get_db()
+    titulo = Book.find_meta_by_isbn(isbn)['titulo']
+    Book.record_open(name, session['usuario'], dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), isbn, titulo) #ACA SERIA session['perfil'])
+    return render_template('books/abrirlibro.html', titulo=titulo, nombre=name)
 
 def validate_meta_isbn(isbn):
     book = Book.find_meta_by_isbn(isbn)

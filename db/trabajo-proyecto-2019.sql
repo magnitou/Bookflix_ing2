@@ -38,10 +38,13 @@ USE `grupo21`;
 DROP TABLE IF EXISTS `historial`;
 
 CREATE TABLE `historial`(  
+  `isbn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `archivo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `usuario` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `fecha_ultima` datetime DEFAULT NULL,
-  PRIMARY KEY (archivo, usuario)
+  PRIMARY KEY (archivo, usuario),
+  CONSTRAINT FK_historial_isbn FOREIGN KEY (isbn) REFERENCES metadato(isbn)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `novedad`;
