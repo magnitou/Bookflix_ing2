@@ -1,0 +1,19 @@
+{% extends "perfil/perfilBase.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-20">
+            <div class="panel panel-primary" >
+                <div class="panel-heading">
+                        <h3 class="panel-title">Perfiles</h3>
+                </div>
+                <br>  
+                {% block main%}                      
+                    {% for perfil in perfiles %}
+                        <a href="{{url_for('perfil_select', id=perfil.id)}}">{{perfil.nombre}}</a>
+                        <br>
+                    {% endfor %}
+                    <a href="{{url_for('perfil_new')}}">Crear Perfil</a>
+                    <br>
+                    <br>
+              {% endblock %}

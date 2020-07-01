@@ -1,7 +1,10 @@
 from flask import redirect, render_template, request, url_for, session, abort, flash
 from flaskps.db import get_db
+
 from flaskps.models.user_model import Usuario
+from flaskps.models.perfil import Perfil
 from flaskps.models.configuracion import Configuracion
+
 from flaskps.helpers.auth import authenticated
 from flaskps.helpers.rols import mapRol
 from flaskps.resources.auth import hasPermit
@@ -184,12 +187,15 @@ def executeEdit(id): #baja la edición al modelo
 
 def create(): #crea un usuario
     set_db()    
+    Perfil.db = get_db()
     if not validate_user(request.form.get('username'), request.form.get('email')) or not validate_email(request.form.get('email')):         
         return redirect(url_for('user_resource_new'))
     if not validate_card(request.form.get('dni'), request.form.get('numero_tarjeta')):
         flash("Tarjeta Ya cargada")
     else:        
         Usuario.create(request.form)
+        user_id = Usuario.get_id_by_username(request.form.get('username'))
+        Perfil.create(request.form.get('username'), user_id)
         flash("Usuario creado con exito")
         return redirect(url_for('auth_login'))
     return redirect(url_for('user_resource_new'))

@@ -72,6 +72,13 @@ class Usuario(object):
         cursor.execute("SELECT * FROM usuario AS u WHERE u.username LIKE '%s%%'" % username)
         user = cursor.fetchone()
         return user['id']
+
+    @classmethod
+    def get_username_by_id(cls, id):
+        cursor = cls.db.cursor()
+        cursor.execute("SELECT username FROM usuario AS u WHERE u.id = %s" % id)
+        user = cursor.fetchone()
+        return user
     @classmethod
     def change_rol(cls, user, rol):
         sql = "INSERT INTO usuario_tiene_rol (rol_id, usuario_id) VALUES (%s, %s) "
@@ -97,10 +104,9 @@ class Usuario(object):
 
     @classmethod
     def delete(cls, id):
-        sql = ' UPDATE usuario SET activo = 0, updated_at = %s where id = %s'
-        cursor = cls.db.cursor()
-        data = (datetime.datetime.now(), str(id))
-        cursor.execute(sql, data)
+        sql = ' DELETE FROM usuario where id = %s'
+        cursor = cls.db.cursor()        
+        cursor.execute(sql, (id))
         cls.db.commit()
         return True
 
