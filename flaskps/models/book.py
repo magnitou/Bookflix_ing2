@@ -100,7 +100,7 @@ class Book(object):
 
     @classmethod
     def record_open(cls, filename, perfil, date, isbn, titulo):
-        sql = "INSERT INTO historial (isbn, titulo,archivo, perfil, fecha_ultima) values (%s, %s,%s, %s, %s) ON DUPLICATE KEY UPDATE isbn=%s, titulo=%s, archivo=%s, perfil=%s, fecha_ultima=%s"
+        sql = "INSERT INTO historial (isbn, titulo,archivo, perfil_id, fecha_ultima) values (%s, %s,%s, %s, %s) ON DUPLICATE KEY UPDATE isbn=%s, titulo=%s, archivo=%s, perfil_id=%s, fecha_ultima=%s"
         data = (isbn, titulo,filename, perfil, date, isbn, titulo,filename, perfil, date)        
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
@@ -118,11 +118,12 @@ class Book(object):
     #GETS
     @classmethod
     def get_last_read(cls, perfil):
-        sql = "SELECT * FROM historial WHERE perfil=%s"
+        sql = "SELECT * FROM historial WHERE perfil_id=%s"
         cursor = cls.db.cursor()
         cursor.execute(sql, (perfil))
         books = cursor.fetchall()
-        books.sort(key=lambda b: b['fecha_ultima'], reverse=True)# if books != () else None
+        if books != ():
+            books.sort(key=lambda b: b['fecha_ultima'], reverse=True)# if books != () else None
         return books
 
     @classmethod     

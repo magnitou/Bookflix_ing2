@@ -117,10 +117,12 @@ app.add_url_rule("/trailer/create", 'trailer_load', trailer.load_trailer, method
 #CRUD perfiles
 app.add_url_rule("/perfiles/new", "perfil_new", perfil.new)
 app.add_url_rule("/perfiles/create", "perfil_create", perfil.create,methods=['POST'])
+app.add_url_rule("/perfilesdelete/<int:id>", "perfil_delete", perfil.delete)
 app.add_url_rule("/perfiles", "perfil_menu", perfil.render_menu)
 app.add_url_rule("/perfiles/<int:id>", "perfil_select", perfil.select)
-
-
+#Cambio de Plan
+app.add_url_rule("/perfilesTopremium", "perfil_to_premium", perfil.to_premium)
+app.add_url_rule("/perfilesTobasic", "perfil_to_basic", perfil.to_basic)
 
 
 @app.route("/")

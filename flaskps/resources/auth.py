@@ -28,7 +28,7 @@ def authenticate():
         return redirect(url_for('auth_login'))
     session['usuario'] = usuario['email']
     session['usuario_id'] = usuario['id']
-    session['perfil'] = Perfil.get_id_by_name_id(usuario['username'], usuario['id'])
+    #session['perfil'] = Perfil.get_id_by_name_id(usuario['username'], usuario['id'])
     session['permisos'] = getCurrentPermits()
     Configuracion.db = get_db
     info = Configuracion.get_information()

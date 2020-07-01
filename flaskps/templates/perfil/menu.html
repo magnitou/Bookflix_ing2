@@ -10,10 +10,19 @@
                 <br>  
                 {% block main%}                      
                     {% for perfil in perfiles %}
+                    <div>
                         <a href="{{url_for('perfil_select', id=perfil.id)}}">{{perfil.nombre}}</a>
+                    
+                        <a onclick="return confirm('Se borrará todo el historial de {{perfil.nombre}} ¿confirma?')" href="{{url_for('perfil_delete', id=perfil.id)}}">eliminar</a>
                         <br>
+                    </div>
                     {% endfor %}
                     <a href="{{url_for('perfil_new')}}">Crear Perfil</a>
                     <br>
                     <br>
-              {% endblock %}
+                    {% if esPremium %}
+                        <a onclick="return confirm('Pasará a plan basico. Sólo podrá tener 2 perfiles ¿confirma?')" href="{{url_for('perfil_to_basic')}}">Pasar a basico</a>
+                    {% else %}
+                        <a onclick="return confirm('Pasará a plan premium. La cuota aumentará ¿confirma?')" href="{{url_for('perfil_to_premium')}}">Pasar a premium</a>
+                    {% endif %}
+                    {% endblock %}

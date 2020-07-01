@@ -9,6 +9,14 @@ class Perfil(object):
         cls.db.commit()
         return True
 
+    @classmethod
+    def delete(cls, id):
+        sql = 'DELETE FROM perfil WHERE id = %s'        
+        cursor = cls.db.cursor()
+        cursor.execute(sql, id)
+        cls.db.commit()
+        return True
+
     #GETS
     @classmethod
     def all_with_id(cls, id):

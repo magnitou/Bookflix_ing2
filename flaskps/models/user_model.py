@@ -128,6 +128,22 @@ class Usuario(object):
         cls.db.commit()
         return True
 
+    @classmethod
+    def toPremium(cls, id):
+        sql = 'UPDATE usuario SET subscription = %s WHERE id = %s'
+        cursor = cls.db.cursor()        
+        cursor.execute(sql, ("premium", id))
+        cls.db.commit()
+        return True
+
+    @classmethod
+    def toBasic(cls, id):
+        sql = 'UPDATE usuario SET subscription = %s WHERE id = %s'
+        cursor = cls.db.cursor()        
+        cursor.execute(sql, ("basic", id))
+        cls.db.commit()
+        return True
+
         
 
     
