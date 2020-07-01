@@ -7,7 +7,7 @@ from flaskps.models.configuracion import Configuracion
 
 from flaskps.helpers.auth import authenticated
 from flaskps.helpers.rols import mapRol
-from flaskps.resources.auth import hasPermit
+from flaskps.resources.auth import hasPermit, logout
 
 import datetime
 
@@ -200,15 +200,14 @@ def create(): #crea un usuario
         return redirect(url_for('auth_login'))
     return redirect(url_for('user_resource_new'))
 
-def delete(id): #inhabilita un usuario a usar la pagina
+def delete(id): #ELIMINA USUARIO
     if not authenticated(session):
         flash("No puede ingresar sin iniciar sesion")
         return redirect('/')
     set_db()
-    if 'usuario_destroy' not in session['permisos']:
-        flash("No tiene permisos para deshabilitar usuarios")
-        return redirect(url_for('user_resource_index'))
     Usuario.delete(id)
+    if 'usuario_destroy' not in session['permisos']: 
+        logout()           
     return redirect(url_for('user_resource_index'))
 
 def active(id): #Habilita a un usuario inhabilitado para usar la pagina

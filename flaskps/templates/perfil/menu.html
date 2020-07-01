@@ -25,4 +25,7 @@
                     {% else %}
                         <a onclick="return confirm('Pasará a plan premium. La cuota aumentará ¿confirma?')" href="{{url_for('perfil_to_premium')}}">Pasar a premium</a>
                     {% endif %}
+                    <br>
+                    <br>
+                    <a onclick="return confirm('Se borrarán todos el historiales asociados a esta cuenta ¿confirma?')" href ="{{ url_for('user_resource_delete', id = perfiles[0].usuario_id)}}">Eliminar mi cuenta</a>
                     {% endblock %}

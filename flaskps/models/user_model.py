@@ -13,7 +13,7 @@ class Usuario(object):
     @classmethod
     def create(cls, data):
         sql = ' INSERT INTO usuario (email,username, dni,password, activo,updated_at, created_at,first_name, last_name, subscription,numero_tarjeta,codigo,fecha) VALUES (%s, %s,%s, %s,%s, %s, %s, %s,%s, %s, %s,%s, %s)'
-        data = (data.get('email'),data.get('username'),data.get('dni'),data.get('password'),1, datetime.datetime.now(),datetime.datetime.now(),data.get('first_name'),data.get('last_name'), data.get('subscription'), data.get('numero_tarjeta'), data.get('codigo'), data.get('fecha')+"-01")
+        data = (data.get('email'),data.get('username'),data.get('dni'),data.get('password'),1, datetime.datetime.now(),datetime.datetime.now(),data.get('first_name'),data.get('last_name'), "basic", data.get('numero_tarjeta'), data.get('codigo'), data.get('fecha')+"-01")
         cursor = cls.db.cursor()
         cursor.execute(sql, data)
         cls.db.commit()

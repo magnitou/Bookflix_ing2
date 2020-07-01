@@ -46,7 +46,7 @@ def logout():
     del session['usuario']
     del session['permisos']
     flash("La sesión se cerró correctamente.")
-    return redirect(url_for('auth_login'))
+    return redirect("/")
 
 def getCurrentPermits():
     usuario = Usuario.find_by_email(session['usuario'])
